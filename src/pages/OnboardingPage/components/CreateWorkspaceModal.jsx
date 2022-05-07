@@ -4,10 +4,7 @@ import GroupsIcon from '@mui/icons-material/Groups';
 import { Box, Button, DialogActions, DialogContent, TextField, Typography } from '@mui/material';
 import { grey, orange } from '@mui/material/colors';
 
-import {
-  BootstrapDialog,
-  BootstrapDialogTitle,
-} from '../../../components/BootstrapDialog/BootstrapDialog';
+import { BootstrapDialog, BootstrapDialogTitle } from '../../../components';
 import { flexCenter, flexCenterColumn } from '../../../styles/commonObjectStyles';
 
 const CreateWorkspaceModal = () => {
