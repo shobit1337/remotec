@@ -6,13 +6,14 @@ import { Container, CssBaseline } from '@mui/material';
 import App from './App';
 import { PrivateRoute } from './components';
 import {
-  AuthPage,
   HomePage,
   MeetingsPage,
   MyTaskPage,
   OnboardingPage,
   PageNotFound,
   ProjectPage,
+  SignIn,
+  SignUp,
   TeamsPage,
 } from './pages';
 
@@ -34,9 +35,10 @@ const Routes = () => {
             <Route path='welcome' element={<OnboardingPage />} />
           </Route>
 
-          <Route element={<PrivateRoute authRoute />}>
-            <Route path='' element={<AuthPage />} />
-          </Route>
+          {/* <Route element={<PrivateRoute authRoute />}> */}
+          <Route path='/login' element={<SignIn />} />
+          <Route path='/signup' element={<SignUp />} />
+          {/* </Route> */}
 
           <Route path='*' element={<PageNotFound />} />
         </RoutesContainer>
