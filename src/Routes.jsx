@@ -33,7 +33,6 @@ const Routes = () => {
             <Route path='team/:teamId' element={<TeamsPage />} />
             <Route path='team/:teamId/:projectId' element={<ProjectPage />} />
             <Route path='dashboard' element={<Dashboard />} />
-            <Route path='profile' element={<UserPage />} />
           </Route>
           <Route path='welcome' element={<OnboardingPage />} />
         </Route>

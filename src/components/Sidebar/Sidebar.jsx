@@ -22,36 +22,35 @@ import {
 const drawerWidth = 240;
 const projectsList = ['Project 1', 'Project 2', 'Project 3'];
 
-const Sidebar = ({ isSidebarClose, setSidebarClose }) => {
+const Sidebar = ({ DrawerHeader, handleDrawerClose, open }) => {
   return (
     <Drawer
       sx={{
-        width: isSidebarClose ? 0 : drawerWidth,
-        '& .MuiDrawer-paper': {
-          width: isSidebarClose ? 0 : drawerWidth,
-          boxSizing: 'border-box',
-          zIndex: 0,
-          transition: 'width 0.2s ease',
-        },
+        width: drawerWidth,
+        flexShrink: 0,
         display: { xs: 'none', md: 'block' },
-        transition: 'width 0.2s ease',
+        '& .MuiDrawer-paper': {
+          width: drawerWidth,
+          boxSizing: 'border-box',
+          display: { xs: 'none', md: 'block' },
+        },
       }}
-      variant='permanent'
-      anchor='left'>
-      <Toolbar
+      variant='persistent'
+      anchor='left'
+      open={open}>
+      <DrawerHeader
         sx={{
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
         }}>
-        <Typography variant='h5' sx={{ fontFamily: 'Nova Slim, cursive' }}>
+        <Typography variant='h5' sx={{ fontFamily: 'Nova Slim, cursive', marginLeft: '0.5rem' }}>
           Remotec
         </Typography>
-        <IconButton onClick={() => setSidebarClose(true)}>
+        <IconButton onClick={handleDrawerClose}>
           <MenuOpenIcon />
         </IconButton>
-      </Toolbar>
-
+      </DrawerHeader>
       <List>
         <ListItem button>
           <ListItemIcon>
@@ -76,7 +75,6 @@ const Sidebar = ({ isSidebarClose, setSidebarClose }) => {
       </List>
 
       <Divider />
-
       <Stack
         direction='row'
         justifyContent='space-between'
@@ -87,6 +85,7 @@ const Sidebar = ({ isSidebarClose, setSidebarClose }) => {
           <AddIcon />
         </IconButton>
       </Stack>
+
       <List>
         {projectsList.map((text, index) => (
           <ListItem button key={index}>
