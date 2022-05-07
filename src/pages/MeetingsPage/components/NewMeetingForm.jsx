@@ -23,8 +23,6 @@ import {
 } from '@mui/material';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
-import { flexCenter } from '../../../styles/commonObjectStyles';
-
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -49,18 +47,9 @@ const names = [
   'Kelly Snyder',
 ];
 
-const NewMeetingForm = () => {
+const NewMeetingForm = ({ meeting, setMeeting }) => {
   const [open, setOpen] = useState(false);
   const [attendee, setAttendee] = React.useState([]);
-  const [meeting, setMeeting] = useState({
-    name: '',
-    summary: '',
-    location: '',
-    startTime: new Date(),
-    endTime: new Date(),
-    needsMeetLink: false,
-    attendees: [],
-  });
 
   const handleClickOpenClose = () => {
     setOpen((prev) => !prev);
