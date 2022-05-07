@@ -1,0 +1,9 @@
+export { default as HomePage } from './HomePage/HomePage';
+export { default as MyTaskPage } from './MyTaskPage/MyTaskPage';
+export { default as MeetingsPage } from './MeetingsPage/MeetingsPage';
+export { default as TeamsPage } from './TeamsPage/TeamsPage';
+export { default as ProjectPage } from './ProjectPage/ProjectPage';
+export { default as AuthPage } from './AuthPage/AuthPage';
+export { default as ProfilePage } from './ProfilePage/ProfilePage';
+export { default as OnboardingPage } from './OnboardingPage/OnboardingPage';
+export { default as PageNotFound } from './PageNotFound/PageNotFound';

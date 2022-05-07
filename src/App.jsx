@@ -1,18 +1,15 @@
 import React from 'react';
+import { Outlet } from 'react-router-dom';
 
-import { CssBaseline, Typography } from '@mui/material';
-
-import { ThemeToggler } from './components';
+import { Bottombar, Navbar, Sidebar } from './components';
 
 function App() {
   return (
     <div className='App'>
-      {/* Normalizes styles */}
-      <CssBaseline />
-      <ThemeToggler />
-      <Typography variant='h1' component='h2' sx={{ fontFamily: 'Nova Slim, cursive' }}>
-        Remotic
-      </Typography>
+      <Navbar />
+      <Sidebar />
+      <Outlet />
+      <Bottombar />
     </div>
   );
 }
