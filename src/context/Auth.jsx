@@ -37,7 +37,7 @@ const AuthProvider = ({ children }) => {
       .then(async (result) => {
         const userDetails = {
           uid: result.user.uid,
-          displayName: result.user.displayName,
+          name: result.user.displayName,
           email: result.user.email,
           photoURL: result.user.photoURL,
           teams: [],
@@ -71,7 +71,7 @@ const AuthProvider = ({ children }) => {
       .then((result) => {
         const userDetails = {
           uid: result.user.uid,
-          displayName: user.name,
+          name: user.name,
           email: result.user.email,
           photoURL: '',
           teams: [],
@@ -84,17 +84,21 @@ const AuthProvider = ({ children }) => {
         });
       })
       .catch((error) => {
-        console.error('Failed to authenticate email and password, ', error);
+        console.error('Failed to signup user, ', error);
       });
   };
 
   const signin = async (email, password) => {
-    return await signInWithEmailAndPassword(auth, email, password);
+    return await signInWithEmailAndPassword(auth, email, password).catch((error) => {
+      console.error('Failed to authenticate email and password, ', error);
+    });
   };
 
   const signout = async () => {
     localStorage.removeItem('token');
-    return await signOut(auth);
+    return await signOut(auth).catch((error) => {
+      console.error('Failed to signout user, ', error);
+    });
   };
 
   const value = {
