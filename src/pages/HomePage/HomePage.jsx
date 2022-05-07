@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Typography } from '@mui/material';
 
-import { TaskModal } from '../../components';
+import { ProjectModal, TaskModal } from '../../components';
 
 const HomePage = () => {
   return (
@@ -11,6 +11,7 @@ const HomePage = () => {
         HOMEPAGE
       </Typography>
       <TaskModal />
+      <ProjectModal />
     </div>
   );
 };

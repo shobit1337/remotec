@@ -6,3 +6,4 @@ export { default as PrivateRoute } from './PrivateRoute/PrivateRoute';
 export { default as BootstrapDialog } from './BootstrapDialog/BootstrapDialog';
 export { default as BootstrapDialogTitle } from './BootstrapDialog/BootstrapDialogTitle';
 export { default as TaskModal } from './TaskModal/TaskModal';
+export { default as ProjectModal } from './ProjectModal/ProjectModal';

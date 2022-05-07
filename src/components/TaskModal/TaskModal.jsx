@@ -19,17 +19,19 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
 const TaskModal = () => {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(new Date());
   const [status, setStatus] = useState('');
   const [priority, setPriority] = useState('');
   const [progress, setProgress] = useState('');
+  const [details, setDetails] = useState({ name: '', description: '', date: new Date() });
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const setFieldInput = (field, value) => {
+    setDetails({ ...details, [field]: value });
   };
-  const handleClose = () => {
-    setOpen(false);
+
+  const handleClickOpenClose = () => {
+    setOpen((prev) => !prev);
   };
+
   const handleStatusChange = (event) => {
     setStatus(event.target.value);
   };
@@ -41,13 +43,13 @@ const TaskModal = () => {
   };
   return (
     <div>
-      <Button variant='outlined' onClick={handleClickOpen}>
+      <Button variant='outlined' onClick={handleClickOpenClose}>
         Open alert dialog
       </Button>
       <Dialog
         open={open}
         width='lg'
-        onClose={handleClose}
+        onClose={handleClickOpenClose}
         aria-labelledby='alert-dialog-title'
         aria-describedby='alert-dialog-description'>
         <DialogContent sx={{ width: '100%' }}>
@@ -58,15 +60,15 @@ const TaskModal = () => {
               multiline
               maxRows={3}
               variant='standard'
+              value={details.name}
+              onChange={(e) => setFieldInput('name', e.target.value)}
             />
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DesktopDatePicker
                 label='Due date'
-                value={value}
+                value={details.date}
                 minDate={new Date('2017-01-01')}
-                onChange={(newValue) => {
-                  setValue(newValue);
-                }}
+                onChange={(newValue) => setFieldInput('date', newValue)}
                 renderInput={(params) => <TextField {...params} />}
               />
             </LocalizationProvider>
@@ -76,6 +78,8 @@ const TaskModal = () => {
               multiline
               maxRows={5}
               variant='standard'
+              value={details.description}
+              onChange={(e) => setFieldInput('description', e.target.value)}
             />
             <FormControl variant='standard' sx={{ m: 1, minWidth: 120 }}>
               <InputLabel id='status'>Status</InputLabel>
@@ -142,7 +146,7 @@ const TaskModal = () => {
           </Stack>
         </DialogContent>
         <DialogActions>
-          <Button variant='contained' onClick={handleClose} autoFocus>
+          <Button variant='contained' onClick={handleClickOpenClose} autoFocus>
             Update
           </Button>
         </DialogActions>
