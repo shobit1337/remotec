@@ -15,8 +15,8 @@ const ProjectPage = () => {
   const { projectId, teamId } = useParams();
 
   return (
-    <Stack direction='column' sx={{ width: '100%' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+    <Stack direction='column' sx={{ width: '100%', position: 'relative' }}>
+      <Box sx={{ borderBottom: 1, borderColor: 'divider', position: 'sticky', top: '0' }}>
         <Tabs value={value} onChange={handleChange} variant='fullWidth'>
           <Tab label='Tasks' to={`/team/${teamId}/${projectId}`} component={Link} />
           <Tab label='Files' to={`/team/${teamId}/${projectId}/files`} component={Link} />

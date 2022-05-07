@@ -40,6 +40,8 @@ const Navbar = ({ open, handleDrawerOpen }) => {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
+        backgroundColor: 'inherit',
+        color: 'inherit',
       }}
       open={open}>
       <Toolbar>
