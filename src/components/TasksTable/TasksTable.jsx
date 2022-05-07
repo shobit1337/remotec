@@ -66,9 +66,9 @@ const TasksTable = () => {
       component={Paper}
       sx={{
         width: '100%',
-        overflowX: 'auto',
         margin: '1rem 0',
         height: `calc(100vh - 13rem)`,
+        overflowX: 'auto',
       }}>
       <Table stickyHeader sx={{ minWidth: 650 }} aria-label='simple table'>
         <TableHead>
