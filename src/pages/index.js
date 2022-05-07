@@ -9,3 +9,4 @@ export { default as ProfilePage } from './ProfilePage/ProfilePage';
 export { default as OnboardingPage } from './OnboardingPage/OnboardingPage';
 export { default as PageNotFound } from './PageNotFound/PageNotFound';
 export { default as Dashboard } from './Dashboard/Dashboard';
+export { default as UserPage } from './UserPage/UserPage';
