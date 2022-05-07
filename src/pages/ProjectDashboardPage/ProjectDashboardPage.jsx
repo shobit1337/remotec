@@ -13,7 +13,7 @@ const paperStyles = {
   paddingBottom: '1rem',
 };
 
-const Dashboard = () => {
+const ProjectDashboardPage = () => {
   return (
     <Container sx={{ minHeight: '100vh' }}>
       <Grid container spacing={3}>
@@ -75,4 +75,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default ProjectDashboardPage;
