@@ -6,7 +6,7 @@ import { Box, Stack, Tab, Tabs } from '@mui/material';
 const ProjectPage = () => {
   const { pathname } = useLocation();
   const path = pathname.split('/')[4];
-  const [value, setValue] = useState(path === undefined ? 0 : path === 'files' ? 1 : 2);
+  const [value, setValue] = useState(path === 'files' ? 1 : path === 'dashboard' ? 2 : 0);
   const handleChange = (event, newValue) => {
     console.log(newValue);
     setValue(newValue);
