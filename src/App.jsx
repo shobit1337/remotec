@@ -1,15 +1,54 @@
 import React, { useEffect, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
-import { Box, Divider, Stack } from '@mui/material';
+import { Box, CssBaseline, Typography } from '@mui/material';
+import { styled } from '@mui/material/styles';
 
 import { Bottombar, Navbar, Sidebar } from './components';
 import { useAuth } from './context';
 
+const drawerWidth = 240;
+
+const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
+  ({ theme, open }) => ({
+    flexGrow: 1,
+    padding: theme.spacing(3),
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    width: '95vw',
+    ...(open && {
+      transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+      width: 0,
+    }),
+  }),
+);
+
+const DrawerHeader = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+  justifyContent: 'flex-end',
+}));
+
 function App() {
-  const [isSidebarClose, setSidebarClose] = useState(false);
   const { currentUser } = useAuth();
   const navigate = useNavigate();
+  const [open, setOpen] = useState(true);
+
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
 
   useEffect(() => {
     if (currentUser?.workspace?.length <= 0) {
@@ -18,29 +57,17 @@ function App() {
   }, [currentUser, navigate]);
 
   return (
-    <Box className='App'>
-      <Stack direction='row'>
-        <Sidebar isSidebarClose={isSidebarClose} setSidebarClose={setSidebarClose} />
-        <Box
-          sx={{
-            width: '100%',
-            height: '100vh',
-          }}>
-          <Navbar isSidebarClose={isSidebarClose} setSidebarClose={setSidebarClose} />
-          <Divider />
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              p: '1rem',
-            }}>
-            <Outlet />
-          </Box>
-        </Box>
-        <Bottombar />
-      </Stack>
+    <Box sx={{ display: 'flex' }}>
+      <CssBaseline />
+      <Sidebar DrawerHeader={DrawerHeader} handleDrawerClose={handleDrawerClose} open={open} />
+      <Navbar open={open} handleDrawerOpen={handleDrawerOpen} />
+      <Main open={open}>
+        <DrawerHeader />
+        <Typography>
+          <Outlet />
+        </Typography>
+      </Main>
+      <Bottombar />
     </Box>
   );
 }

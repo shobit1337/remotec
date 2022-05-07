@@ -26,11 +26,11 @@ const Sidebar = ({ DrawerHeader, handleDrawerClose, open }) => {
   return (
     <Drawer
       sx={{
-        width: drawerWidth,
+        width: open ? drawerWidth : 0,
         flexShrink: 0,
         display: { xs: 'none', md: 'block' },
         '& .MuiDrawer-paper': {
-          width: drawerWidth,
+          width: open ? drawerWidth : 0,
           boxSizing: 'border-box',
           display: { xs: 'none', md: 'block' },
         },
