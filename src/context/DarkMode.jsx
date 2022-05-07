@@ -33,7 +33,7 @@ const DarkModeProvider = ({ children }) => {
             : {
                 background: {
                   default: '#F7FAFC',
-                  paper: '#F5F5F5',
+                  paper: '#fcfcfc',
                 },
               }),
         },
