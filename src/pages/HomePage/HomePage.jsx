@@ -94,8 +94,9 @@ const HomePage = () => {
                 </Box>
                 <Typography variant='h6'>Ddsfdfd</Typography>
               </Grid>
-              {[1, 1, 1, 1, 11, 1, 1, 1, 1, 11, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2].map((e) => (
+              {[1, 1, 1, 1, 11, 1, 1, 1, 1, 11, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2].map((_, index) => (
                 <Grid
+                  key={index}
                   item
                   xs={12}
                   md={6}
@@ -134,8 +135,9 @@ const HomePage = () => {
               Workmates
             </Typography>
             <Stack direction='row' spacing={5}>
-              {[1, 1, 1, 1, 11, 1, 1, 1, 1, 11, 1, 1].map((e) => (
+              {[1, 1, 1, 1, 11, 1, 1, 1, 1, 11, 1, 1].map((_, index) => (
                 <Paper
+                  key={index}
                   variant='outlined'
                   sx={{ ...flexCenter, height: '15rem', minWidth: '12rem' }}>
                   <Stack sx={{ alignItems: 'center' }} spacing={2}>
