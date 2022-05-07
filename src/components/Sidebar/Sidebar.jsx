@@ -90,9 +90,7 @@ const Sidebar = ({ isSidebarClose, setSidebarClose }) => {
       <List>
         {projectsList.map((text, index) => (
           <ListItem button key={index}>
-            <ListItemIcon>
-              <CircleIcon sx={{ color: 'yellow', fontSize: '16px' }} />
-            </ListItemIcon>
+            <CircleIcon sx={{ color: 'yellow', fontSize: '16px', marginRight: '1rem' }} />
             <ListItemText primary={text} />
           </ListItem>
         ))}
