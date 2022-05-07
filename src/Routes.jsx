@@ -22,7 +22,6 @@ const Routes = () => {
     <Router>
       {/* Normalizes styles */}
       <CssBaseline />
-      {/* <Container> */}
       <RoutesContainer>
         <Route element={<PrivateRoute />}>
           <Route element={<App />}>
@@ -42,7 +41,6 @@ const Routes = () => {
 
         <Route path='*' element={<PageNotFound />} />
       </RoutesContainer>
-      {/* </Container> */}
     </Router>
   );
 };
