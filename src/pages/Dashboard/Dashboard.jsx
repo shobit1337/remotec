@@ -18,25 +18,26 @@ const Dashboard = () => {
     <Container sx={{ minHeight: '100vh' }}>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={4}>
-          <Paper elevation={3} sx={{ ...flexCenterColumn, ...paperStyles }}>
+          <Paper variant='outlined' elevation={3} sx={{ ...flexCenterColumn, ...paperStyles }}>
             Total tasks
             <Typography variant='h2'>15</Typography>
           </Paper>
         </Grid>
         <Grid item xs={12} sm={4}>
-          <Paper elevation={3} sx={{ ...flexCenterColumn, ...paperStyles }}>
+          <Paper variant='outlined' elevation={3} sx={{ ...flexCenterColumn, ...paperStyles }}>
             Completed tasks
             <Typography variant='h2'>15</Typography>
           </Paper>
         </Grid>
         <Grid item xs={12} sm={4}>
-          <Paper elevation={3} sx={{ ...flexCenterColumn, ...paperStyles }}>
+          <Paper variant='outlined' elevation={3} sx={{ ...flexCenterColumn, ...paperStyles }}>
             Incomplete tasks
             <Typography variant='h2'>15</Typography>
           </Paper>
         </Grid>
         <Grid item xs={12} sm={6}>
           <Paper
+            variant='outlined'
             elevation={3}
             sx={{
               ...flexCenterColumn,
@@ -51,6 +52,7 @@ const Dashboard = () => {
         </Grid>
         <Grid item xs={12} sm={6}>
           <Paper
+            variant='outlined'
             elevation={3}
             sx={{
               ...flexCenterColumn,
