@@ -34,7 +34,7 @@ const SignIn = () => {
               Sign in
             </Typography>
             <form onSubmit={handleSubmit}>
-              <Box component='form' sx={{ mt: 1 }}>
+              <Box sx={{ mt: 1 }}>
                 <TextField
                   margin='normal'
                   required
@@ -62,7 +62,7 @@ const SignIn = () => {
                 <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 1 }}>
                   Sign In
                 </Button>
-                <Button type='click' fullWidth variant='contained' sx={{ mt: 1, mb: 2 }}>
+                <Button fullWidth variant='contained' sx={{ mt: 1, mb: 2 }}>
                   Sign In with Google account
                 </Button>
                 <Grid container>
