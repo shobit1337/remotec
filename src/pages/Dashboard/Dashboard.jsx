@@ -42,7 +42,7 @@ const Dashboard = () => {
               ...flexCenterColumn,
               ...paperStyles,
               width: '100%',
-              height: 400,
+              height: '100%',
               overflow: 'auto',
             }}>
             Tasks by completion status
@@ -56,7 +56,6 @@ const Dashboard = () => {
               ...flexCenterColumn,
               ...paperStyles,
               width: '100%',
-              height: 400,
             }}>
             Tasks by completion status
             <PieChart
