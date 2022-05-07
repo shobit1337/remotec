@@ -32,7 +32,7 @@ const HomePage = () => {
   const theme = useTheme();
 
   return (
-    <Container sx={{ minHeight: '100vh' }}>
+    <Container sx={{ minHeight: '100vh', width: '100%' }}>
       <Typography gutterBottom align='center' variant='body1'>
         Good afternoot, user
       </Typography>
@@ -70,7 +70,7 @@ const HomePage = () => {
             </Typography>
             <Grid
               container
-              sx={{ height: '50vh', overflow: 'auto' }}
+              sx={{ height: '50vh', overflowY: 'auto' }}
               columnSpacing={5}
               rowSpacing={2}>
               <Grid
@@ -84,9 +84,7 @@ const HomePage = () => {
                 }}>
                 <Box
                   sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
+                    ...flexCenter,
                     borderRadius: 2,
                     border: `2px dashed ${theme.palette.text.primary}`,
                     width: '3rem',
