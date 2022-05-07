@@ -78,7 +78,7 @@ const SignUp = () => {
                 </Button>
                 <Grid container>
                   <Grid item>
-                    <Link to='/' variant='body2' style={{ color: 'inherit' }}>
+                    <Link to='/login' variant='body2' style={{ color: 'inherit' }}>
                       Already have an account?
                     </Link>
                   </Grid>

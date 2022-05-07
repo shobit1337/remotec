@@ -72,7 +72,7 @@ const SignIn = () => {
                     </Link>
                   </Grid>
                   <Grid item>
-                    <Link to='/' variant='body2' style={{ color: 'inherit' }}>
+                    <Link to='/signup' variant='body2' style={{ color: 'inherit' }}>
                       {"Don't have an account? Sign Up"}
                     </Link>
                   </Grid>
