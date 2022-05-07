@@ -43,7 +43,6 @@ const HomePage = () => {
         <Grid item xs={12} sm={6}>
           <Paper
             variant='outlined'
-            elevation={3}
             sx={{
               ...paperSx,
             }}>
@@ -61,7 +60,6 @@ const HomePage = () => {
         <Grid item xs={12} sm={6}>
           <Paper
             variant='outlined'
-            elevation={3}
             sx={{
               ...paperSx,
             }}>
@@ -126,7 +124,6 @@ const HomePage = () => {
         <Grid item xs={12}>
           <Paper
             variant='outlined'
-            elevation={3}
             sx={{
               ...paperSx,
             }}>
