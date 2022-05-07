@@ -7,4 +7,3 @@ export { default as AuthPage } from './AuthPage/AuthPage';
 export { default as ProfilePage } from './ProfilePage/ProfilePage';
 export { default as OnboardingPage } from './OnboardingPage/OnboardingPage';
 export { default as PageNotFound } from './PageNotFound/PageNotFound';
-export { InitialOnboarding } from './InitialOnboarding/InitialOnboarding';
