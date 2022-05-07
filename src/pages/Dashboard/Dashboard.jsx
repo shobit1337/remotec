@@ -43,6 +43,7 @@ const Dashboard = () => {
               ...paperStyles,
               width: '100%',
               height: 400,
+              overflow: 'auto',
             }}>
             Tasks by completion status
             <BarGraph />

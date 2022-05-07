@@ -16,7 +16,7 @@ import {
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 export const options = {
-  responsive: true,
+  responsive: false,
   plugins: {
     legend: {
       position: 'top',
@@ -47,7 +47,7 @@ export const data = {
 };
 
 const BarGraph = () => {
-  return <Bar options={options} data={data} />;
+  return <Bar options={options} data={data} style={{ width: '100%' }} />;
 };
 
 export default BarGraph;
