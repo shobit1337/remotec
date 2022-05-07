@@ -16,17 +16,15 @@ const Bottombar = () => {
         bottom: 0,
         left: 0,
         right: 0,
-        display: { xs: 'block', sm: 'none' },
+        display: { xs: 'block', md: 'none' },
       }}
-      elevation={3}
-    >
+      elevation={3}>
       <BottomNavigation
         showLabels
         value={value}
         onChange={(event, newValue) => {
           setValue(newValue);
-        }}
-      >
+        }}>
         <BottomNavigationAction label='Home' icon={<HomeIcon />} />
         <BottomNavigationAction label='My Tasks' icon={<TaskAltIcon />} />
         <BottomNavigationAction label='Meetings' icon={<GroupsIcon />} />

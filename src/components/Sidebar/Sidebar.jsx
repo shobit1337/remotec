@@ -33,19 +33,17 @@ const Sidebar = ({ isSidebarClose, setSidebarClose }) => {
           zIndex: 0,
           transition: 'width 0.2s ease',
         },
-        display: { xs: 'none', sm: 'block' },
+        display: { xs: 'none', md: 'block' },
         transition: 'width 0.2s ease',
       }}
       variant='permanent'
-      anchor='left'
-    >
+      anchor='left'>
       <Toolbar
         sx={{
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-        }}
-      >
+        }}>
         <Typography variant='h5' sx={{ fontFamily: 'Nova Slim, cursive' }}>
           Remotec
         </Typography>
@@ -83,8 +81,7 @@ const Sidebar = ({ isSidebarClose, setSidebarClose }) => {
         direction='row'
         justifyContent='space-between'
         alignItems='center'
-        sx={{ padding: '1rem' }}
-      >
+        sx={{ padding: '1rem' }}>
         <Typography variant='h6'>Team Name</Typography>
         <IconButton>
           <AddIcon />
