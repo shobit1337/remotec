@@ -6,13 +6,14 @@ import { Container, CssBaseline } from '@mui/material';
 import App from './App';
 import { PrivateRoute } from './components';
 import {
-  AuthPage,
   HomePage,
   MeetingsPage,
   MyTaskPage,
   OnboardingPage,
   PageNotFound,
   ProjectPage,
+  SignIn,
+  SignUp,
   TeamsPage,
 } from './pages';
 
@@ -21,26 +22,27 @@ const Routes = () => {
     <Router>
       {/* Normalizes styles */}
       <CssBaseline />
-      <Container>
-        <RoutesContainer>
-          <Route element={<PrivateRoute />}>
-            <Route element={<App />}>
-              <Route path='home' element={<HomePage />} />
-              <Route path='tasks' element={<MyTaskPage />} />
-              <Route path='meetings' element={<MeetingsPage />} />
-              <Route path='team/:teamId' element={<TeamsPage />} />
-              <Route path='team/:teamId/:projectId' element={<ProjectPage />} />
-            </Route>
-            <Route path='welcome' element={<OnboardingPage />} />
+      {/* <Container> */}
+      <RoutesContainer>
+        <Route element={<PrivateRoute />}>
+          <Route element={<App />}>
+            <Route path='home' element={<HomePage />} />
+            <Route path='tasks' element={<MyTaskPage />} />
+            <Route path='meetings' element={<MeetingsPage />} />
+            <Route path='team/:teamId' element={<TeamsPage />} />
+            <Route path='team/:teamId/:projectId' element={<ProjectPage />} />
           </Route>
+          <Route path='welcome' element={<OnboardingPage />} />
+        </Route>
 
-          <Route element={<PrivateRoute authRoute />}>
-            <Route path='' element={<AuthPage />} />
-          </Route>
+        {/* <Route element={<PrivateRoute authRoute />}> */}
+        <Route path='/login' element={<SignIn />} />
+        <Route path='/signup' element={<SignUp />} />
+        {/* </Route> */}
 
-          <Route path='*' element={<PageNotFound />} />
-        </RoutesContainer>
-      </Container>
+        <Route path='*' element={<PageNotFound />} />
+      </RoutesContainer>
+      {/* </Container> */}
     </Router>
   );
 };
