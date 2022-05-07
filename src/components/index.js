@@ -8,3 +8,5 @@ export { default as BootstrapDialogTitle } from './BootstrapDialog/BootstrapDial
 export { default as TaskModal } from './TaskModal/TaskModal';
 export { default as ProjectModal } from './ProjectModal/ProjectModal';
 export { default as TasksTable } from './TasksTable/TasksTable';
+export { default as MyTasksTable } from './MyTasksTable/MyTasksTable';
+export { default as FloatingButton } from './FloatingButton/FloatingButton';
