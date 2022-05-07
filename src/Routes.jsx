@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, BrowserRouter as Router, Routes as RoutesContainer } from 'react-router-dom';
 
-import { Container, CssBaseline } from '@mui/material';
+import { CssBaseline } from '@mui/material';
 
 import App from './App';
 import { PrivateRoute } from './components';
