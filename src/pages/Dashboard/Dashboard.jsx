@@ -35,7 +35,7 @@ const Dashboard = () => {
             <Typography variant='h2'>15</Typography>
           </Paper>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <Paper
             elevation={3}
             sx={{
@@ -48,7 +48,7 @@ const Dashboard = () => {
             <BarGraph />
           </Paper>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <Paper
             elevation={3}
             sx={{
