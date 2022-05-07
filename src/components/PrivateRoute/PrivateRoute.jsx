@@ -1,9 +1,10 @@
 import React from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
+import { useAuth } from '../../context/AuthContext';
+
 const PrivateRoute = ({ authRoute = false }) => {
-  // TODO: Take isLoggedIn from context after auth setup is done
-  const isLoggedIn = () => true;
+  const { isLoggedIn } = useAuth();
   const location = useLocation();
 
   if (authRoute) {

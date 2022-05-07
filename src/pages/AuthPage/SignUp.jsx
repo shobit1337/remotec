@@ -4,9 +4,11 @@ import { Link } from 'react-router-dom';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Avatar, Box, Button, Container, Grid, Paper, TextField, Typography } from '@mui/material';
 
+import { useAuth } from '../../context/AuthContext';
 import GridImage from './components/GridImage';
 
 const SignUp = () => {
+  const { signup } = useAuth();
   const [inputFieldValues, setInputFieldValues] = useState({ name: '', email: '', password: '' });
 
   const setFormFieldValues = (field, value) => {
@@ -14,6 +16,7 @@ const SignUp = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    signup(inputFieldValues);
   };
   return (
     <Container sx={{ minHeight: '100vh' }}>
