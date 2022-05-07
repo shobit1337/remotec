@@ -32,7 +32,7 @@ const HomePage = () => {
   const theme = useTheme();
 
   return (
-    <Container sx={{ minHeight: '100vh', width: '100%' }}>
+    <Container maxWidth={false} sx={{ minHeight: '100vh', width: '100%' }}>
       <Typography gutterBottom align='center' variant='body1'>
         Good afternoot, user
       </Typography>
