@@ -17,7 +17,6 @@ const JoinWorkspaceModal = () => {
     setOpen(true);
   };
   const handleClose = () => {
-    // e.preventDefault();
     setOpen(false);
   };
 
