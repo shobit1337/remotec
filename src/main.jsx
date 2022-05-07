@@ -6,7 +6,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { registerSW } from 'virtual:pwa-register';
 
 import Routes from './Routes';
-import { DarkModeProvider } from './context';
+import { AuthProvider, DarkModeProvider } from './context';
 import './index.css';
 import { theme } from './styles/theme';
 
@@ -16,7 +16,9 @@ ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <DarkModeProvider>
-        <Routes />
+        <AuthProvider>
+          <Routes />
+        </AuthProvider>
       </DarkModeProvider>
     </ThemeProvider>
   </React.StrictMode>,

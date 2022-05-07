@@ -36,10 +36,10 @@ const Routes = () => {
           <Route path='welcome' element={<OnboardingPage />} />
         </Route>
 
-        {/* <Route element={<PrivateRoute authRoute />}> */}
-        <Route path='/login' element={<SignIn />} />
-        <Route path='/signup' element={<SignUp />} />
-        {/* </Route> */}
+        <Route element={<PrivateRoute authRoute />}>
+          <Route path='' element={<SignIn />} />
+          <Route path='signup' element={<SignUp />} />
+        </Route>
 
         <Route path='*' element={<PageNotFound />} />
       </RoutesContainer>

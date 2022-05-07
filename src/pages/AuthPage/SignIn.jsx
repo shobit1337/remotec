@@ -4,15 +4,18 @@ import { Link } from 'react-router-dom';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Avatar, Box, Button, Container, Grid, Paper, TextField, Typography } from '@mui/material';
 
+import { useAuth } from '../../context';
 import GridImage from './components/GridImage';
 
 const SignIn = () => {
   const [inputFieldValues, setInputFieldValues] = useState({ email: '', password: '' });
+  const { loginWithGoogle, signin } = useAuth();
   const setFormFieldValues = (field, value) => {
     setInputFieldValues({ ...inputFieldValues, [field]: value });
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    signin(inputFieldValues.email, inputFieldValues.password);
   };
   return (
     <Container sx={{ minHeight: '100vh' }}>
@@ -62,7 +65,11 @@ const SignIn = () => {
                 <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 1 }}>
                   Sign In
                 </Button>
-                <Button fullWidth variant='contained' sx={{ mt: 1, mb: 2 }}>
+                <Button
+                  onClick={loginWithGoogle}
+                  fullWidth
+                  variant='contained'
+                  sx={{ mt: 1, mb: 2 }}>
                   Sign In with Google account
                 </Button>
                 <Grid container>
