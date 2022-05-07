@@ -7,6 +7,7 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
+  DialogTitle,
   FormControl,
   InputLabel,
   MenuItem,
@@ -17,7 +18,7 @@ import {
 import { green, indigo, orange, red } from '@mui/material/colors';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
-const TaskModal = () => {
+const TaskModal = ({ id = null }) => {
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState('');
   const [priority, setPriority] = useState('');
@@ -52,6 +53,9 @@ const TaskModal = () => {
         onClose={handleClickOpenClose}
         aria-labelledby='alert-dialog-title'
         aria-describedby='alert-dialog-description'>
+        <DialogTitle id='alert-dialog-title'>{`${
+          id ? 'Edit task details' : 'Create a new task'
+        }`}</DialogTitle>
         <DialogContent sx={{ width: '100%' }}>
           <Stack spacing={3}>
             <TextField
@@ -143,12 +147,27 @@ const TaskModal = () => {
                 </MenuItem>
               </Select>
             </FormControl>
+            <Button variant='contained' component='label'>
+              Upload File
+              <input type='file' hidden />
+            </Button>
           </Stack>
         </DialogContent>
         <DialogActions>
-          <Button variant='contained' onClick={handleClickOpenClose} autoFocus>
-            Update
-          </Button>
+          {id ? (
+            <>
+              <Button variant='contained' onClick={handleClickOpenClose}>
+                Update
+              </Button>
+              <Button variant='contained' color='error' onClick={handleClickOpenClose}>
+                Delete
+              </Button>
+            </>
+          ) : (
+            <Button variant='contained' onClick={handleClickOpenClose}>
+              Create
+            </Button>
+          )}
         </DialogActions>
       </Dialog>
     </div>
