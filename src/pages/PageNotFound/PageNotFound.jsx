@@ -2,8 +2,8 @@ import React from 'react';
 
 import { Box, Container, Typography } from '@mui/material';
 
-import image from '../../../public/images/pageNotFound.svg';
 import { flexCenterColumn } from '../../styles/commonObjectStyles';
+import image from '/images/pageNotFound.svg';
 
 const PageNotFound = () => {
   return (

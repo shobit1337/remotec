@@ -26,10 +26,12 @@ const WorkspaceContainer = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    (async () => {
-      const projectsRes = await getAllProjects(workspace?.uid);
-      setProjects(projectsRes);
-    })();
+    if (workspace?.uid) {
+      (async () => {
+        const projectsRes = await getAllProjects(workspace?.uid);
+        setProjects(projectsRes);
+      })();
+    }
   }, [workspace]);
 
   return (
