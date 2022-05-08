@@ -122,7 +122,7 @@ const HomePage = () => {
             </Grid>
           </Paper>
         </Grid>
-        <Grid item xs={12} sx={{ marginBottom: { xs: '4rem', md: '0' } }}>
+        <Grid item xs={12} sx={{ marginBottom: { xs: '4rem', md: '0rem' } }}>
           <Paper
             variant='outlined'
             sx={{

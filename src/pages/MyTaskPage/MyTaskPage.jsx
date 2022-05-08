@@ -1,7 +1,14 @@
 import React from 'react';
 
+import { FloatingButton, MyTasksTable } from '../../components';
+
 const MyTaskPage = () => {
-  return <div>MyTaskPage</div>;
+  return (
+    <>
+      <MyTasksTable />
+      <FloatingButton />
+    </>
+  );
 };
 
 export default MyTaskPage;
