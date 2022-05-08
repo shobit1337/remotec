@@ -14,7 +14,6 @@ const UserPage = () => {
       <Container sx={{ minHeight: '100vh' }}>
         <Box
           sx={{
-            width: { xs: '100vw', sm: '80vw', lg: '50vw' },
             margin: 'auto',
             ...flexCenter,
           }}>
