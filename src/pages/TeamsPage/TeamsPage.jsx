@@ -22,7 +22,7 @@ import { indigo } from '@mui/material/colors';
 import { ProjectModal } from '../../components';
 import { useWorkspace } from '../../context';
 import { getAllWorkspaceMemebers } from '../../utils/members';
-import { getAllProjects } from '../../utils/team';
+import { getAllProjects } from '../../utils/project';
 import { RemoveUserModal } from './components';
 
 const flexCenter = {
