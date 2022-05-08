@@ -2,21 +2,42 @@ import React, { useState } from 'react';
 
 import {
   Button,
+  Chip,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
   Stack,
   TextField,
 } from '@mui/material';
 
 import { createProject } from '../../utils/project';
 
-const defaultProjectDetails = { name: '', description: '' };
+const projectColors = [
+  { code: '#BFBCBC', name: 'Silver' },
+  { code: '#EB6868', name: 'Burnt Sienna' },
+  { code: '#E3886D', name: 'Copperfield' },
+  { code: '#E7B568', name: 'Porsche' },
+  { code: '#F2DA6F', name: 'Golden Sand' },
+  { code: '#A9C953', name: 'Celery' },
+  { code: '#539B7E', name: 'Aqua Forest' },
+  { code: '#4ABEB7', name: 'Fountain Blue' },
+  { code: '#99DFDB', name: 'Morning Glory' },
+  { code: '#526DC6', name: 'Indigo' },
+  { code: '#867DDC', name: 'Chetwode Blue' },
+  { code: '#F1A5E8', name: 'Lavender Magenta' },
+  { code: '#E66AA9', name: 'Deep Blush' },
+  { code: '#4DB6AC', name: 'Verdigris' },
+  { code: '#7CB342', name: 'Sushi' },
+  { code: '#8D6E63', name: 'Cement' },
+];
 
 const ProjectModal = ({ open, toggleOpen, id }) => {
-  const [details, setDetails] = useState(defaultProjectDetails);
-
+  const [details, setDetails] = useState({ name: '', description: '', themeColor: '' });
   const setFieldInput = (field, value) => {
     setDetails({ ...details, [field]: value });
   };
@@ -24,8 +45,8 @@ const ProjectModal = ({ open, toggleOpen, id }) => {
   const handleCreateProject = async (e) => {
     e.preventDefault();
     const res = await createProject(details, id);
+    setDetails({ name: '', description: '', themeColor: '' });
     toggleOpen();
-    setDetails(defaultProjectDetails);
   };
 
   return (
@@ -44,6 +65,7 @@ const ProjectModal = ({ open, toggleOpen, id }) => {
                 id='standard-multiline-static'
                 label='Project name'
                 multiline
+                required
                 maxRows={2}
                 variant='standard'
                 value={details.name}
@@ -58,6 +80,24 @@ const ProjectModal = ({ open, toggleOpen, id }) => {
                 value={details.description}
                 onChange={(e) => setFieldInput('description', e.target.value)}
               />
+              <FormControl required variant='standard' sx={{ m: 1, minWidth: 120 }}>
+                <InputLabel id='progress'>Theme Color</InputLabel>
+                <Select
+                  labelId='Theme Color'
+                  value={details.themeColor}
+                  onChange={(e) => setFieldInput('themeColor', e.target.value)}
+                  label='Theme Color'>
+                  {projectColors.map((color) => (
+                    <MenuItem key={color.code} value={color.code}>
+                      <Chip
+                        label={color.name}
+                        size='small'
+                        sx={{ backgroundColor: color.code, color: '#000' }}
+                      />
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
             </Stack>
           </DialogContent>
           <DialogActions>
