@@ -12,8 +12,10 @@ import {
 
 import { createProject } from '../../utils/project';
 
+const defaultProjectDetails = { name: '', description: '' };
+
 const ProjectModal = ({ open, toggleOpen, id }) => {
-  const [details, setDetails] = useState({ name: '', description: '' });
+  const [details, setDetails] = useState(defaultProjectDetails);
 
   const setFieldInput = (field, value) => {
     setDetails({ ...details, [field]: value });
@@ -23,6 +25,7 @@ const ProjectModal = ({ open, toggleOpen, id }) => {
     e.preventDefault();
     const res = await createProject(details, id);
     toggleOpen();
+    setDetails(defaultProjectDetails);
   };
 
   return (
