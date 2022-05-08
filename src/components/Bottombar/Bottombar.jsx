@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import GroupsIcon from '@mui/icons-material/Groups';
 import HomeIcon from '@mui/icons-material/Home';
@@ -7,8 +8,12 @@ import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import WorkspaceIcon from '@mui/icons-material/Workspaces';
 import { BottomNavigation, BottomNavigationAction, Paper } from '@mui/material/';
 
+import { useWorkspace } from '../../context';
+
 const Bottombar = () => {
   const [value, setValue] = useState(0);
+  const navigate = useNavigate();
+  const { workspace } = useWorkspace();
   return (
     <Paper
       sx={{
@@ -25,11 +30,31 @@ const Bottombar = () => {
         onChange={(event, newValue) => {
           setValue(newValue);
         }}>
-        <BottomNavigationAction label='Home' icon={<HomeIcon />} />
-        <BottomNavigationAction label='My Tasks' icon={<TaskAltIcon />} />
-        <BottomNavigationAction label='Meetings' icon={<GroupsIcon />} />
-        <BottomNavigationAction label='Projects' icon={<WorkspaceIcon />} />
-        <BottomNavigationAction label='Profile' icon={<PersonIcon />} />
+        <BottomNavigationAction
+          onClick={() => navigate('/home')}
+          label='Home'
+          icon={<HomeIcon />}
+        />
+        <BottomNavigationAction
+          onClick={() => navigate('/tasks')}
+          label='My Tasks'
+          icon={<TaskAltIcon />}
+        />
+        <BottomNavigationAction
+          onClick={() => navigate('/meetings')}
+          label='Meetings'
+          icon={<GroupsIcon />}
+        />
+        <BottomNavigationAction
+          onClick={() => navigate(`/team/${workspace.uid}`)}
+          label='Projects'
+          icon={<WorkspaceIcon />}
+        />
+        <BottomNavigationAction
+          onClick={() => navigate('/profile')}
+          label='Profile'
+          icon={<PersonIcon />}
+        />
       </BottomNavigation>
     </Paper>
   );

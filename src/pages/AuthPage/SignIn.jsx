@@ -17,6 +17,32 @@ const SignIn = () => {
     e.preventDefault();
     signin(inputFieldValues.email, inputFieldValues.password);
   };
+
+  const gapi = window.gapi;
+  gapi.load('client', () => {
+    console.log('loaded client');
+
+    // const CLIENT_ID = '976439338379-ddv0i53kracqq6dai54mlunomgen30jl.apps.googleusercontent.com';
+    // const API_KEY = 'AIzaSyDgWwLJs73HaIHN25qGvKJBEIas2y0UhuE';
+    const DISCOVERY_DOCS = 'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest';
+    const SCOPES =
+      'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile openid https://www.googleapis.com/auth/calendar.events';
+
+    gapi.client.init({
+      apiKey: import.meta.env.VITE_API_KEY,
+      clientId: import.meta.env.VITE_CLIENT_ID,
+      discoveryDocs: DISCOVERY_DOCS,
+      scope: SCOPES,
+    });
+    gapi.client.load('calendar', 'v3', () => console.log('bam!'));
+  });
+  // async function loginHandler() {
+  //   const googleAuth = gapi.auth2.getAuthInstance();
+  //   console.log(googleAuth);
+  //   const googleUser = await googleAuth.signIn();
+  //   console.log(googleUser);
+  // }
+
   return (
     <Container sx={{ minHeight: '100vh' }}>
       <Grid container component='main' sx={{ padding: 0, minHeight: '100vh', width: '100%' }}>
@@ -65,6 +91,7 @@ const SignIn = () => {
                 <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 1 }}>
                   Sign In
                 </Button>
+                {/* <button onClick={loginHandler}>Google</button> */}
                 <Button
                   onClick={loginWithGoogle}
                   fullWidth
