@@ -59,12 +59,12 @@
     "vite-plugin-pwa": "^0.12.0"
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
-      "prettier --write",
-      "yarn lint"
+    "src/**/*.{js,jsx,css,scss,md}": [
+      "yarn prettier:fix"
+      
     ],
-    "src/**/*.{js,jsx,ts,tsx,json}": [
-      "eslint src"
+    "src/**/*.{js,jsx}": [
+      "yarn lint"
     ]
   },
   "author": {

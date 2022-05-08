@@ -6,7 +6,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { registerSW } from 'virtual:pwa-register';
 
 import Routes from './Routes';
-import { AuthProvider, DarkModeProvider } from './context';
+import { AuthProvider, DarkModeProvider, WorkspaceProvider } from './context';
 import './index.css';
 import { theme } from './styles/theme';
 
@@ -17,7 +17,9 @@ ReactDOM.render(
     <ThemeProvider theme={theme}>
       <DarkModeProvider>
         <AuthProvider>
-          <Routes />
+          <WorkspaceProvider>
+            <Routes />
+          </WorkspaceProvider>
         </AuthProvider>
       </DarkModeProvider>
     </ThemeProvider>
