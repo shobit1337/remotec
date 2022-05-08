@@ -22,16 +22,20 @@ const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [userUpdated, setUserUpdated] = useState(true);
+  console.log(currentUser);
   const isLoggedIn = () => (currentUser?.email ? true : false);
 
   const refreshUser = () => setUserUpdated((state) => !state);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      console.log('state changed:', user);
       setIsLoading(true);
       if (user) {
-        const userObj = await getDoc(doc(db, 'users', user.uid));
-        setCurrentUser(userObj.data());
+        console.log(user.uid);
+        const userObj = await getDoc(doc(db, `users/${user.uid}`));
+        const data = userObj.data();
+        if (data) setCurrentUser(data);
       } else {
         setCurrentUser(null);
       }
@@ -61,6 +65,7 @@ const AuthProvider = ({ children }) => {
           await setDoc(userRef, {
             ...userDetails,
           });
+          setCurrentUser(userDetails);
         }
 
         // This gives you a Google Access Token. You can use it to access the Google API.

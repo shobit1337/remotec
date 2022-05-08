@@ -31,6 +31,7 @@ export const createWorkspace = async (name, description, user) => {
 };
 
 export const joinWorkspace = async (code, user) => {
+  console.log(code, user);
   //check if code is valid
   const workspaceDoc = await getDoc(doc(db, 'workspace', code));
   const workspace = workspaceDoc?.data();
@@ -45,7 +46,7 @@ export const joinWorkspace = async (code, user) => {
       { merge: true },
     );
 
-    await addWorkspaceMember(code, user.uid);
+    await addWorkspaceMember(code, user);
     return true;
   } else {
     return false;

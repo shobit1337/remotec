@@ -12,8 +12,8 @@ export const getAllWorkspaceMemebers = async (workspaceId) => {
   return allMembers;
 };
 
-export const addWorkspaceMember = async (workspaceId, userId) => {
-  const userRef = await doc(collection(db, 'users'), userId);
+export const addWorkspaceMember = async (workspaceId, user) => {
+  const userRef = await doc(collection(db, 'users'), user.uid);
   await setDoc(
     userRef,
     {
