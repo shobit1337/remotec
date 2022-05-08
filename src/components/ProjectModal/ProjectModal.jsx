@@ -10,7 +10,7 @@ import {
   TextField,
 } from '@mui/material';
 
-import { createProject } from '../../utils/team';
+import { createProject } from '../../utils/project';
 
 const ProjectModal = ({ open, toggleOpen, id }) => {
   const [details, setDetails] = useState({ name: '', description: '' });
