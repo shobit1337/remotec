@@ -10,69 +10,70 @@ import {
   TextField,
 } from '@mui/material';
 
-const ProjectModal = ({ id = null }) => {
-  const [open, setOpen] = useState(false);
+import { createProject } from '../../utils/team';
+
+const ProjectModal = ({ open, toggleOpen, id }) => {
   const [details, setDetails] = useState({ name: '', description: '' });
-  const handleClickOpenClose = () => {
-    setOpen((prev) => !prev);
-  };
 
   const setFieldInput = (field, value) => {
     setDetails({ ...details, [field]: value });
   };
 
+  const handleCreateProject = async (e) => {
+    e.preventDefault();
+    const res = await createProject(details, id);
+    toggleOpen();
+  };
+
   return (
     <div>
-      <Button variant='outlined' onClick={handleClickOpenClose}>
-        Open alert dialog
-      </Button>
       <Dialog
         open={open}
         width='lg'
-        onClose={handleClickOpenClose}
+        onClose={toggleOpen}
         aria-labelledby='alert-dialog-title'
         aria-describedby='alert-dialog-description'>
-        <DialogTitle id='alert-dialog-title'>{`${
-          id ? 'Edit project details' : 'Create a new project'
-        }`}</DialogTitle>
-        <DialogContent sx={{ width: '100%' }}>
-          <Stack spacing={3}>
-            <TextField
-              id='standard-multiline-static'
-              label='Project name'
-              multiline
-              maxRows={2}
-              variant='standard'
-              value={details.name}
-              onChange={(e) => setFieldInput('name', e.target.value)}
-            />
-            <TextField
-              id='standard-multiline-static'
-              label='Project description'
-              multiline
-              maxRows={5}
-              variant='standard'
-              value={details.description}
-              onChange={(e) => setFieldInput('description', e.target.value)}
-            />
-          </Stack>
-        </DialogContent>
-        <DialogActions>
-          {id ? (
+        <DialogTitle id='alert-dialog-title'>Create a new project</DialogTitle>
+        <form style={{ width: '100%' }} onSubmit={handleCreateProject}>
+          <DialogContent sx={{ width: '100%' }}>
+            <Stack spacing={3}>
+              <TextField
+                id='standard-multiline-static'
+                label='Project name'
+                multiline
+                maxRows={2}
+                variant='standard'
+                value={details.name}
+                onChange={(e) => setFieldInput('name', e.target.value)}
+              />
+              <TextField
+                id='standard-multiline-static'
+                label='Project description'
+                multiline
+                maxRows={5}
+                variant='standard'
+                value={details.description}
+                onChange={(e) => setFieldInput('description', e.target.value)}
+              />
+            </Stack>
+          </DialogContent>
+          <DialogActions>
+            {/* {id ? (
             <>
-              <Button variant='contained' onClick={handleClickOpenClose}>
+              <Button variant='contained' onClick={toggleOpen}>
                 Update
               </Button>
-              <Button variant='contained' color='error' onClick={handleClickOpenClose}>
+              <Button variant='contained' color='error' onClick={toggleOpen}>
                 Delete
               </Button>
             </>
-          ) : (
-            <Button variant='contained' onClick={handleClickOpenClose}>
+          ) : ( */}
+            <Button variant='contained' type='submit'>
               Create
             </Button>
-          )}
-        </DialogActions>
+            {/* )} */}
+          </DialogActions>
+        </form>
       </Dialog>
     </div>
   );
