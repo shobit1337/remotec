@@ -22,17 +22,14 @@ const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [userUpdated, setUserUpdated] = useState(true);
-  console.log(currentUser);
   const isLoggedIn = () => (currentUser?.email ? true : false);
 
   const refreshUser = () => setUserUpdated((state) => !state);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      console.log('state changed:', user);
       setIsLoading(true);
       if (user) {
-        console.log(user.uid);
         const userObj = await getDoc(doc(db, `users/${user.uid}`));
         const data = userObj.data();
         if (data) setCurrentUser(data);

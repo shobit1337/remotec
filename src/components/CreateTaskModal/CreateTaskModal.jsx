@@ -20,13 +20,13 @@ import { green, indigo, orange, red } from '@mui/material/colors';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
 import { getAllWorkspaceMemebers } from '../../utils/members';
-import { createProjectTask } from '../../utils/tasks';
+import { createProjectTask, deleteProjectTask, updateProjectTask } from '../../utils/tasks';
 
-const CreateTaskModal = ({ open, toggleOpen, id = null }) => {
+const CreateTaskModal = ({ open, toggleClose, task = null }) => {
   const [details, setDetails] = useState({
     name: '',
     description: '',
-    date: '',
+    date: new Date(),
     status: '',
     progress: '',
     priority: '',
@@ -42,13 +42,22 @@ const CreateTaskModal = ({ open, toggleOpen, id = null }) => {
 
   const handleCreateTask = async () => {
     if (details.name) {
-      await createProjectTask(
-        { ...details, assigned: assignedPerson },
-        teamId,
-        projectId,
-        assignedPerson,
-      );
+      const assigned = JSON.parse(assignedPerson);
+      await createProjectTask({ ...details, assigned }, teamId, projectId, assigned?.uid);
+      toggleClose();
     }
+  };
+
+  const handleUpdate = async () => {
+    if (details.name) {
+      const assigned = JSON.parse(assignedPerson);
+      await updateProjectTask({ ...details, assigned }, assigned?.uid, task.assigned?.uid);
+      toggleClose();
+    }
+  };
+  const handleDelete = async () => {
+    await deleteProjectTask(task);
+    toggleClose();
   };
 
   useEffect(() => {
@@ -58,9 +67,19 @@ const CreateTaskModal = ({ open, toggleOpen, id = null }) => {
       setMembersList(memeber);
     })();
 
-    // if (id) {
-    // getTaskDetails
-    // }
+    if (task) {
+      setDetails({
+        ...task,
+        assigned: undefined,
+        name: task.name,
+        description: task.description,
+        date: task.date,
+        status: task.status,
+        progress: task.progress,
+        priority: task.priority,
+      });
+      setAssignedPerson(JSON.stringify(task.assigned));
+    }
 
     return () => {
       setDetails({
@@ -71,26 +90,22 @@ const CreateTaskModal = ({ open, toggleOpen, id = null }) => {
         progress: '',
         priority: '',
       });
-      setAssignedPerson(null);
-      setMembersList('');
+      setAssignedPerson('');
+      setMembersList(null);
     };
-  }, [teamId]);
+  }, [teamId, task]);
 
   return (
     <div>
       <Dialog
         open={open}
+        fullWidth
         width='lg'
-        onClose={toggleOpen}
+        onClose={toggleClose}
         aria-labelledby='alert-dialog-title'
         aria-describedby='alert-dialog-description'>
         <DialogTitle id='alert-dialog-title'>
-          {
-            // `${
-            // id ? 'Edit task details' :
-            'Create a new task'
-            // }`
-          }
+          {`${task ? 'Edit task details' : 'Create a new task'}`}
         </DialogTitle>
         <DialogContent sx={{ width: '100%' }}>
           <Stack spacing={3}>
@@ -105,21 +120,24 @@ const CreateTaskModal = ({ open, toggleOpen, id = null }) => {
             />
             {/* Assigned Person */}
             <FormControl variant='standard' sx={{ m: 1, minWidth: 120 }}>
-              <InputLabel id='progress'>Progress</InputLabel>
+              <InputLabel id='assigned'>Assign task</InputLabel>
               <Select
                 labelId='assigned'
-                defaultValue={''}
+                defaultValue=''
                 value={assignedPerson}
                 onChange={(e) => setAssignedPerson(e.target.value)}
                 label='assigned'>
                 <MenuItem value=''>
                   <em>None</em>
                 </MenuItem>
-                {membersList?.map((member) => (
-                  <MenuItem key={member.uid} value={member.uid}>
-                    <Chip label={member.name} size='small' sx={{ backgroundColor: green[300] }} />
-                  </MenuItem>
-                ))}
+                {membersList?.length > 0 &&
+                  membersList?.map((member) => (
+                    <MenuItem
+                      key={member.uid}
+                      value={JSON.stringify({ name: member.name, uid: member.uid })}>
+                      <Chip label={member.name} size='small' sx={{ backgroundColor: green[300] }} />
+                    </MenuItem>
+                  ))}
               </Select>
             </FormControl>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -219,12 +237,12 @@ const CreateTaskModal = ({ open, toggleOpen, id = null }) => {
           </Stack>
         </DialogContent>
         <DialogActions>
-          {id ? (
+          {task ? (
             <>
-              <Button variant='contained' onClick={toggleOpen}>
+              <Button variant='contained' onClick={handleUpdate}>
                 Update
               </Button>
-              <Button variant='contained' color='error' onClick={toggleOpen}>
+              <Button variant='contained' color='error' onClick={handleDelete}>
                 Delete
               </Button>
             </>

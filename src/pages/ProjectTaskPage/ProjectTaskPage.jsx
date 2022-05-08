@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-import { CreateTaskModal, FloatingButton, TasksTable } from '../../components';
+import { FloatingButton, TasksTable } from '../../components';
+import { useProject } from '../../context';
 
 const ProjectTaskPage = () => {
-  const [isTaskModelOpen, setIsTaskModelOpen] = useState(false);
-  const toggleOpen = () => setIsTaskModelOpen((state) => !state);
+  const { toggleOpen } = useProject();
   return (
     <>
       <TasksTable />
       <FloatingButton onClick={toggleOpen} />
-      <CreateTaskModal open={isTaskModelOpen} toggleOpen={toggleOpen} />
     </>
   );
 };
