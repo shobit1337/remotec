@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import AddIcon from '@mui/icons-material/Add';
-import CircleIcon from '@mui/icons-material/Circle';
+import SquareRoundedIcon from '@mui/icons-material/SquareRounded';
 import {
   Box,
   Divider,
@@ -54,8 +54,11 @@ const WorkspaceContainer = () => {
           <ListItem
             button
             onClick={() => navigate(`team/${workspace.uid}/${project.uid}`)}
+            sx={{ py: 0 }}
             key={project.uid}>
-            <CircleIcon sx={{ color: 'yellow', fontSize: '16px', marginRight: '1rem' }} />
+            <SquareRoundedIcon
+              sx={{ color: project?.themeColor, fontSize: '16px', marginRight: '1rem' }}
+            />
             <ListItemText primary={project.name} />
           </ListItem>
         ))}
