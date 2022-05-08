@@ -19,7 +19,7 @@ import {
 import { green, indigo, orange, red } from '@mui/material/colors';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
-import { getAllWorkspaceMemebers } from '../../utils/members';
+import { getAllWorkspaceMembers } from '../../utils/members';
 import { createProjectTask } from '../../utils/tasks';
 
 const CreateTaskModal = ({ open, toggleOpen, id = null }) => {
@@ -54,7 +54,7 @@ const CreateTaskModal = ({ open, toggleOpen, id = null }) => {
   useEffect(() => {
     // Fetching workspace users list
     (async () => {
-      const memeber = await getAllWorkspaceMemebers(teamId);
+      const memeber = await getAllWorkspaceMembers(teamId);
       setMembersList(memeber);
     })();
 
