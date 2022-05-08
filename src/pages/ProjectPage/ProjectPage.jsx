@@ -3,9 +3,10 @@ import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 
 import { Box, Stack, Tab, Tabs } from '@mui/material';
 
-import { getProjectData } from '../../utils/project';
+import { useProject } from '../../context';
 
 const ProjectPage = () => {
+  const { setProjectId } = useProject();
   const { pathname } = useLocation();
   const path = pathname.split('/')[4];
   const [value, setValue] = useState(path === 'files' ? 1 : path === 'dashboard' ? 2 : 0);
@@ -15,12 +16,8 @@ const ProjectPage = () => {
   };
 
   useEffect(() => {
-    (async () => {
-      // getProjects Details
-      const projectData = await getProjectData(teamId, projectId);
-      // get all tasks Array
-    })();
-  }, [projectId, teamId]);
+    setProjectId(projectId);
+  }, [projectId, setProjectId]);
 
   return (
     <Stack direction='column' sx={{ width: '100%', position: 'relative' }}>

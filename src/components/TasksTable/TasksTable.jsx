@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React from 'react';
 
 import {
   Chip,
@@ -13,29 +12,11 @@ import {
 } from '@mui/material/';
 import { green, grey, orange, red } from '@mui/material/colors';
 
-import { getAllProjectTasks } from '../../utils/tasks';
+import { useProject } from '../../context';
 
 function createData(task, assignee, dueDate, priority, status) {
   return { task, assignee, dueDate, priority, status };
 }
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 'Low', 'Off Track'),
-  createData('Ice cream sandwich', 237, 9.0, 'High', 'At Risk'),
-  createData('Eclair', 262, 16.0, 'Low', 'At Risk'),
-  createData('Cupcake', 305, 3.7, 'High', 'Off Track'),
-  createData('Gingerbread', 356, 16.0, 'Medium', 'On Track'),
-  createData('Gingerbread', 356, 16.0, 'Low', 'On Track'),
-  createData('Gingerbread', 356, 16.0, 'Low', 'On Track'),
-  createData('Gingerbread', 356, 16.0, 'Low', 'On Track'),
-  createData('Gingerbread', 356, 16.0, 'Low', 'On Track'),
-  createData('Gingerbread', 356, 16.0, 'Low', 'On Track'),
-  createData('Gingerbread', 356, 16.0, 'Low', 'On Track'),
-  createData('Gingerbread', 356, 16.0, 'Low', 'On Track'),
-  createData('Gingerbread', 356, 16.0, 'Low', 'On Track'),
-  createData('Gingerbread', 356, 16.0, 'Low', 'On Track'),
-  createData('Gingerbread', 356, 16.0, 'Low', 'On Track'),
-];
 
 const getPriorityColour = (priority) => {
   switch (priority) {
@@ -64,15 +45,12 @@ const getStatusColor = (status) => {
 };
 
 const TasksTable = () => {
-  const [tasks, setTasks] = useState(null);
-  const { projectId } = useParams();
+  const { projectTasks, setSelectedTask, toggleOpen } = useProject();
 
-  useEffect(() => {
-    (async () => {
-      const data = await getAllProjectTasks(projectId);
-      setTasks(data);
-    })();
-  }, [projectId]);
+  const handleSelectTask = (task) => {
+    setSelectedTask(task);
+    toggleOpen();
+  };
 
   return (
     <TableContainer
@@ -94,23 +72,30 @@ const TasksTable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {tasks?.map((row, index) => (
-            <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+          {projectTasks?.map((task) => (
+            <TableRow
+              key={task.uid}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              onClick={() => handleSelectTask(task)}>
               <TableCell component='th' scope='row'>
-                {row.name}
+                {task.name}
               </TableCell>
-              <TableCell align='right'>{row.assigned}</TableCell>
-              <TableCell align='right'>{row.date}</TableCell>
+              <TableCell align='right'>{task.assigned && task.assigned?.name}</TableCell>
+              <TableCell align='right'>{task.date && task.date?.toDate().toDateString()}</TableCell>
               <TableCell align='right'>
-                <Chip
-                  sx={{ backgroundColor: getPriorityColour(row.priority) }}
-                  label={row.priority}
-                />
+                {task.priority && (
+                  <Chip
+                    sx={{ backgroundColor: getPriorityColour(task.priority) }}
+                    label={task.priority}
+                  />
+                )}
               </TableCell>
               <TableCell align='right'>
-                <Chip
-                  sx={{ backgroundColor: getStatusColor(row.status) }}
-                  label={row.status}></Chip>
+                {task.status && (
+                  <Chip
+                    sx={{ backgroundColor: getStatusColor(task.status) }}
+                    label={task.status}></Chip>
+                )}
               </TableCell>
             </TableRow>
           ))}
