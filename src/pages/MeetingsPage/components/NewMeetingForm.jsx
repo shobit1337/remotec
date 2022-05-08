@@ -25,6 +25,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
 import FloatingButton from '../../../components/FloatingButton/FloatingButton';
 import { useWorkspace } from '../../../context';
+import { getAllWorkspaceMemebers } from '../../../utils/members';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -37,18 +38,18 @@ const MenuProps = {
   },
 };
 
-const names = [
-  'OliverHansen@gmail.com',
-  'VanHenry@mui.com',
-  'AprilTucker@mdeu.com',
-  'RalphHubbard@jndejkmd.com',
-  'OmarAlexander@ude.com',
-  'CarlosAbbott@example.com',
-  'MiriamWagner@new.com',
-  'BradleyWilkerson@jnef.com',
-  'VirginiaAndrews@efkm.com',
-  'Kelly@Snyder.com',
-];
+// const names = [
+//   'OliverHansen@gmail.com',
+//   'VanHenry@mui.com',
+//   'AprilTucker@mdeu.com',
+//   'RalphHubbard@jndejkmd.com',
+//   'OmarAlexander@ude.com',
+//   'CarlosAbbott@example.com',
+//   'MiriamWagner@new.com',
+//   'BradleyWilkerson@jnef.com',
+//   'VirginiaAndrews@efkm.com',
+//   'Kelly@Snyder.com',
+// ];
 
 const NewMeetingForm = ({ setFinalMeeting, handleClickOpenClose, meetForm }) => {
   const [meeting, setMeeting] = useState({
@@ -60,9 +61,9 @@ const NewMeetingForm = ({ setFinalMeeting, handleClickOpenClose, meetForm }) => 
     needsMeetLink: false,
     attendees: [],
   });
+  const [names, setNames] = useState([]);
   const [attendee, setAttendee] = useState([]);
   const { workspace } = useWorkspace();
-  console.log(workspace);
 
   const setMeetingHandler = (field, value) => {
     setMeeting({ ...meeting, [field]: value });
@@ -141,9 +142,11 @@ const NewMeetingForm = ({ setFinalMeeting, handleClickOpenClose, meetForm }) => 
   };
 
   useEffect(() => {
-    // const names = getAllWorkspaceMemebers()
-  }, []);
-
+    (async () => {
+      const temp = await getAllWorkspaceMemebers(workspace.uid);
+      temp.forEach((user) => setNames((prev) => [...prev, user.email]));
+    })();
+  }, [workspace.uid]);
   return (
     <div>
       <FloatingButton onClick={handleClickOpenClose} />
