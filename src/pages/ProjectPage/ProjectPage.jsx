@@ -1,17 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 
 import { Box, Stack, Tab, Tabs } from '@mui/material';
+
+import { getProjectData } from '../../utils/project';
 
 const ProjectPage = () => {
   const { pathname } = useLocation();
   const path = pathname.split('/')[4];
   const [value, setValue] = useState(path === 'files' ? 1 : path === 'dashboard' ? 2 : 0);
+  const { projectId, teamId } = useParams();
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  const { projectId, teamId } = useParams();
+  useEffect(() => {
+    (async () => {
+      // getProjects Details
+      const projectData = await getProjectData(teamId, projectId);
+      // get all tasks Array
+    })();
+  }, [projectId, teamId]);
 
   return (
     <Stack direction='column' sx={{ width: '100%', position: 'relative' }}>

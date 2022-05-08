@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 import {
   Chip,
@@ -11,6 +12,8 @@ import {
   TableRow,
 } from '@mui/material/';
 import { green, grey, orange, red } from '@mui/material/colors';
+
+import { getAllProjectTasks } from '../../utils/tasks';
 
 function createData(task, assignee, dueDate, priority, status) {
   return { task, assignee, dueDate, priority, status };
@@ -61,6 +64,16 @@ const getStatusColor = (status) => {
 };
 
 const TasksTable = () => {
+  const [tasks, setTasks] = useState(null);
+  const { projectId } = useParams();
+
+  useEffect(() => {
+    (async () => {
+      const data = await getAllProjectTasks(projectId);
+      setTasks(data);
+    })();
+  }, [projectId]);
+
   return (
     <TableContainer
       component={Paper}
@@ -81,13 +94,13 @@ const TasksTable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row, index) => (
+          {tasks?.map((row, index) => (
             <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
               <TableCell component='th' scope='row'>
-                {row.task}
+                {row.name}
               </TableCell>
-              <TableCell align='right'>{row.assignee}</TableCell>
-              <TableCell align='right'>{row.dueDate}</TableCell>
+              <TableCell align='right'>{row.assigned}</TableCell>
+              <TableCell align='right'>{row.date}</TableCell>
               <TableCell align='right'>
                 <Chip
                   sx={{ backgroundColor: getPriorityColour(row.priority) }}
