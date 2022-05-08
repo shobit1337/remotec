@@ -65,8 +65,9 @@ const MeetingsPage = () => {
     <div>
       <Container
         sx={{
-          minHeight: { md: `calc(100vh - 11rem)`, xs: `calc(100vh - 14.5rem)` },
+          minHeight: { xs: `calc(100vh - 14.5rem)`, md: `calc(100vh - 11rem)` },
           width: '100%',
+          paddingBottom: '5rem',
         }}
         maxWidth='xl'
         disableGutters>
