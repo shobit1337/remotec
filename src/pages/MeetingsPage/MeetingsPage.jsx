@@ -93,16 +93,11 @@ const MeetingsPage = () => {
             meetForm={meetForm}
           />
         )}
-        <div className='grid-layout'>
+        <Masonry columns={{ xs: 1, sm: 2, lg: 3, xl: 4 }} spacing={5}>
           {eventsFromUser.map((event) => (
             <EventCard key={event.id} event={event} />
           ))}
-        </div>
-        {/* <Masonry columns={{ xs: 1, sm: 2, lg: 3, xl: 4 }} spacing={3}>
-          {eventsFromUser.map((event) => (
-            <EventCard key={event.id} event={event} />
-          ))}
-        </Masonry> */}
+        </Masonry>
       </Container>
     </div>
   );
