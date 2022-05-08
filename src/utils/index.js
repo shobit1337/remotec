@@ -1,1 +1,1 @@
-export { getDate, getDateTime } from './datecalculation';
+export { getDate, getDateTime, getDay } from './datecalculation';

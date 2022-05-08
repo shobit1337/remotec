@@ -12,9 +12,17 @@ const monthNames = [
   'November',
   'December',
 ];
+
+const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
 const getDate = (date) => {
   let newDate = new Date(date);
   return `${monthNames[newDate.getMonth()]} ${newDate.getDate()}`;
+};
+
+const getDay = () => {
+  let day = new Date();
+  return days[day.getDay()];
 };
 
 const getDateTime = (date) => {
@@ -25,4 +33,4 @@ const getDateTime = (date) => {
   return `${monthNames[newDate.getMonth()]} ${newDate.getDate()}, ${hours}:${minutes} ${am_pm}`;
 };
 
-export { getDate, getDateTime };
+export { getDate, getDay, getDateTime };

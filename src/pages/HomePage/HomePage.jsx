@@ -18,9 +18,12 @@ import {
 } from '@mui/material';
 import { Box } from '@mui/material';
 
+import date from 'date-and-time';
+
 import { ProjectModal } from '../../components';
 import { useAuth, useWorkspace } from '../../context';
 import { flexCenter } from '../../styles/commonObjectStyles';
+import { getDate, getDay } from '../../utils';
 import { getAllWorkspaceMemebers } from '../../utils/members';
 import { getAllProjects } from '../../utils/project';
 import { getUserNotes, updateUserNotes } from '../../utils/userNote';
@@ -31,6 +34,23 @@ const paperSx = {
   overflow: 'auto',
   p: 3,
 };
+
+const greetinOfTheDay = (() => {
+  const hr = date.format(new Date(), 'HH');
+  if (hr >= 0 && hr < 12) {
+    return 'Good morning';
+  } else if (hr === 12) {
+    return 'Good noon';
+  } else if (hr >= 12 && hr <= 17) {
+    return 'Good afternoon';
+  } else {
+    return 'Good evening';
+  }
+})();
+
+const getTodaysDate = (() => {
+  return `${getDay()}, ${getDate(new Date())}`;
+})();
 
 const HomePage = () => {
   const theme = useTheme();
@@ -67,10 +87,10 @@ const HomePage = () => {
     <Container maxWidth={false} sx={{ minHeight: '100vh', width: '100%' }}>
       <ProjectModal open={isProjectModelOpen} toggleOpen={toggleOpen} id={workspace?.uid} />
       <Typography gutterBottom align='center' variant='body1'>
-        Good afternoot, user
+        {getTodaysDate}
       </Typography>
       <Typography gutterBottom component='h2' align='center' variant='h4'>
-        Good afternoot, user
+        {greetinOfTheDay}, {currentUser.name}
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
