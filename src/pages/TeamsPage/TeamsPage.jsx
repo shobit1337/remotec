@@ -21,7 +21,7 @@ import { indigo } from '@mui/material/colors';
 
 import { ProjectModal } from '../../components';
 import { useWorkspace } from '../../context';
-import { getAllWorkspaceMembers } from '../../utils/members';
+import { getAllWorkspaceMemebers } from '../../utils/members';
 import { getAllProjects } from '../../utils/project';
 import { RemoveUserModal } from './components';
 
@@ -50,7 +50,7 @@ const TeamsPage = () => {
         setProjects(projectsRes);
       })();
       (async () => {
-        const workMatesRes = await getAllWorkspaceMembers(workspace?.uid);
+        const workMatesRes = await getAllWorkspaceMemebers(workspace?.uid);
         setWorkMates(workMatesRes);
       })();
     }
