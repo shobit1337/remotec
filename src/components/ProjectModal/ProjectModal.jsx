@@ -47,7 +47,6 @@ const ProjectModal = ({ open, toggleOpen, id }) => {
     const res = await createProject(details, id);
     setDetails({ name: '', description: '', themeColor: '' });
     toggleOpen();
-    setDetails(defaultProjectDetails);
   };
 
   return (
