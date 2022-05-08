@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 import { DesktopDatePicker, LocalizationProvider } from '@mui/lab';
 import {
@@ -18,44 +19,79 @@ import {
 import { green, indigo, orange, red } from '@mui/material/colors';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
-const TaskModal = ({ id = null }) => {
-  const [open, setOpen] = useState(false);
-  const [status, setStatus] = useState('');
-  const [priority, setPriority] = useState('');
-  const [progress, setProgress] = useState('');
-  const [details, setDetails] = useState({ name: '', description: '', date: new Date() });
+import { createProjectTask } from '../../utils/tasks';
+import { getAllWorkspaceMemebers } from '../../utils/teammate';
 
+const CreateTaskModal = ({ open, toggleOpen, id = null }) => {
+  const [details, setDetails] = useState({
+    name: '',
+    description: '',
+    date: '',
+    status: '',
+    progress: '',
+    priority: '',
+  });
+
+  const [membersList, setMembersList] = useState(null);
+  const [assignedPerson, setAssignedPerson] = useState('');
+
+  const { teamId, projectId } = useParams();
   const setFieldInput = (field, value) => {
     setDetails({ ...details, [field]: value });
   };
 
-  const handleClickOpenClose = () => {
-    setOpen((prev) => !prev);
+  const handleCreateTask = async () => {
+    if (details.name) {
+      await createProjectTask(
+        { ...details, assigned: assignedPerson },
+        teamId,
+        projectId,
+        assignedPerson,
+      );
+    }
   };
 
-  const handleStatusChange = (event) => {
-    setStatus(event.target.value);
-  };
-  const handlePriorityChange = (event) => {
-    setPriority(event.target.value);
-  };
-  const handleProgressChange = (event) => {
-    setProgress(event.target.value);
-  };
+  useEffect(() => {
+    // Fetching workspace users list
+    (async () => {
+      const memeber = await getAllWorkspaceMemebers(teamId);
+      setMembersList(memeber);
+    })();
+
+    // if (id) {
+    // getTaskDetails
+    // }
+
+    return () => {
+      setDetails({
+        name: '',
+        description: '',
+        date: '',
+        status: '',
+        progress: '',
+        priority: '',
+      });
+      setAssignedPerson(null);
+      setMembersList('');
+    };
+  }, [teamId]);
+
   return (
     <div>
-      <Button variant='outlined' onClick={handleClickOpenClose}>
-        Open alert dialog
-      </Button>
       <Dialog
         open={open}
         width='lg'
-        onClose={handleClickOpenClose}
+        onClose={toggleOpen}
         aria-labelledby='alert-dialog-title'
         aria-describedby='alert-dialog-description'>
-        <DialogTitle id='alert-dialog-title'>{`${
-          id ? 'Edit task details' : 'Create a new task'
-        }`}</DialogTitle>
+        <DialogTitle id='alert-dialog-title'>
+          {
+            // `${
+            // id ? 'Edit task details' :
+            'Create a new task'
+            // }`
+          }
+        </DialogTitle>
         <DialogContent sx={{ width: '100%' }}>
           <Stack spacing={3}>
             <TextField
@@ -67,10 +103,29 @@ const TaskModal = ({ id = null }) => {
               value={details.name}
               onChange={(e) => setFieldInput('name', e.target.value)}
             />
+            {/* Assigned Person */}
+            <FormControl variant='standard' sx={{ m: 1, minWidth: 120 }}>
+              <InputLabel id='progress'>Progress</InputLabel>
+              <Select
+                labelId='assigned'
+                defaultValue={''}
+                value={assignedPerson}
+                onChange={(e) => setAssignedPerson(e.target.value)}
+                label='assigned'>
+                <MenuItem value=''>
+                  <em>None</em>
+                </MenuItem>
+                {membersList?.map((member) => (
+                  <MenuItem key={member.uid} value={member.uid}>
+                    <Chip label={member.name} size='small' sx={{ backgroundColor: green[300] }} />
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DesktopDatePicker
                 label='Due date'
-                value={details.date}
+                value={new Date()}
                 minDate={new Date('2017-01-01')}
                 onChange={(newValue) => setFieldInput('date', newValue)}
                 renderInput={(params) => <TextField {...params} />}
@@ -85,9 +140,15 @@ const TaskModal = ({ id = null }) => {
               value={details.description}
               onChange={(e) => setFieldInput('description', e.target.value)}
             />
+            {/* Status */}
             <FormControl variant='standard' sx={{ m: 1, minWidth: 120 }}>
               <InputLabel id='status'>Status</InputLabel>
-              <Select labelId='status' value={status} onChange={handleStatusChange} label='Status'>
+              <Select
+                labelId='status'
+                defaultValue={''}
+                value={details.status}
+                onChange={(e) => setFieldInput('status', e.target.value)}
+                label='Status'>
                 <MenuItem value=''>
                   <em>None</em>
                 </MenuItem>
@@ -102,12 +163,14 @@ const TaskModal = ({ id = null }) => {
                 </MenuItem>
               </Select>
             </FormControl>
+            {/* Priority */}
             <FormControl variant='standard' sx={{ m: 1, minWidth: 120 }}>
               <InputLabel id='priority'>Priority</InputLabel>
               <Select
                 labelId='priority'
-                value={priority}
-                onChange={handlePriorityChange}
+                defaultValue={''}
+                value={details.priority}
+                onChange={(e) => setFieldInput('priority', e.target.value)}
                 label='Priority'>
                 <MenuItem value=''>
                   <em>None</em>
@@ -123,12 +186,14 @@ const TaskModal = ({ id = null }) => {
                 </MenuItem>
               </Select>
             </FormControl>
+            {/* Progress */}
             <FormControl variant='standard' sx={{ m: 1, minWidth: 120 }}>
               <InputLabel id='progress'>Progress</InputLabel>
               <Select
                 labelId='progress'
-                value={progress}
-                onChange={handleProgressChange}
+                defaultValue={''}
+                value={details.progress}
+                onChange={(e) => setFieldInput('progress', e.target.value)}
                 label='Progress'>
                 <MenuItem value=''>
                   <em>None</em>
@@ -156,15 +221,15 @@ const TaskModal = ({ id = null }) => {
         <DialogActions>
           {id ? (
             <>
-              <Button variant='contained' onClick={handleClickOpenClose}>
+              <Button variant='contained' onClick={toggleOpen}>
                 Update
               </Button>
-              <Button variant='contained' color='error' onClick={handleClickOpenClose}>
+              <Button variant='contained' color='error' onClick={toggleOpen}>
                 Delete
               </Button>
             </>
           ) : (
-            <Button variant='contained' onClick={handleClickOpenClose}>
+            <Button variant='contained' onClick={handleCreateTask}>
               Create
             </Button>
           )}
@@ -174,4 +239,4 @@ const TaskModal = ({ id = null }) => {
   );
 };
 
-export default TaskModal;
+export default CreateTaskModal;
