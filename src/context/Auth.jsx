@@ -45,18 +45,18 @@ const AuthProvider = ({ children }) => {
   const loginWithGoogle = () => {
     signInWithPopup(auth, provider)
       .then(async (result) => {
-        const userDetails = {
-          uid: result.user.uid,
-          name: result.user.displayName,
-          email: result.user.email,
-          photoURL: result.user.photoURL,
-          workspace: [],
-          tasks: [],
-          meetings: [],
-        };
-
-        const isUserPresent = await getDoc(doc(db, 'users', userDetails.uid));
+        // If this is new user, add them to firestore
+        const isUserPresent = await getDoc(doc(db, 'users', result.user.uid));
         if (!isUserPresent.data()) {
+          const userDetails = {
+            uid: result.user.uid,
+            name: result.user.displayName,
+            email: result.user.email,
+            photoURL: result.user.photoURL,
+            workspace: [],
+            tasks: [],
+            meetings: [],
+          };
           const userRef = await doc(collection(db, 'users'), userDetails.uid);
           await setDoc(userRef, {
             ...userDetails,
@@ -66,9 +66,7 @@ const AuthProvider = ({ children }) => {
         // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
-
         localStorage.setItem('token', token);
-        setCurrentUser(userDetails);
       })
       .catch((error) => {
         const credential = GoogleAuthProvider.credentialFromError(error);
@@ -79,6 +77,7 @@ const AuthProvider = ({ children }) => {
   const signup = async (user) => {
     await createUserWithEmailAndPassword(auth, user.email, user.password)
       .then((result) => {
+        const userRef = doc(collection(db, 'users'), result.user.uid);
         const userDetails = {
           uid: result.user.uid,
           name: user.name,
@@ -88,11 +87,9 @@ const AuthProvider = ({ children }) => {
           tasks: [],
           meetings: [],
         };
-        const userRef = doc(collection(db, 'users'), result.user.uid);
         setDoc(userRef, {
           ...userDetails,
         });
-        setCurrentUser(userDetails);
       })
       .catch((error) => {
         console.error('Failed to signup user, ', error);
@@ -100,22 +97,9 @@ const AuthProvider = ({ children }) => {
   };
 
   const signin = async (email, password) => {
-    return await signInWithEmailAndPassword(auth, email, password)
-      .then((result) => {
-        const userDetails = {
-          uid: result.user.uid,
-          name: result.user.name,
-          email: result.user.email,
-          photoURL: result.user.email.photoURL,
-          workspace: result.user.email,
-          tasks: result.user.email,
-          meetings: result.user.email,
-        };
-        setCurrentUser(userDetails);
-      })
-      .catch((error) => {
-        console.error('Failed to authenticate email and password, ', error);
-      });
+    return await signInWithEmailAndPassword(auth, email, password).catch((error) => {
+      console.error('Failed to authenticate email and password, ', error);
+    });
   };
 
   const signout = async () => {

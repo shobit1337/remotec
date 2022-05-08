@@ -13,10 +13,12 @@ const WorkspaceProvider = ({ children }) => {
 
   useEffect(() => {
     // Listening to workspace changes and updating the workspace state
-    const unsub = onSnapshot(doc(db, 'workspace', currentUser?.workspace[0]), (doc) => {
-      const data = doc.data();
-      if (data) setWorkspace(data);
-    });
+    let unsub = (e) => e;
+    if (currentUser?.workspace[0])
+      unsub = onSnapshot(doc(db, 'workspace', currentUser?.workspace[0]), (doc) => {
+        const data = doc.data();
+        if (data) setWorkspace(data);
+      });
     return () => unsub();
   }, [currentUser]);
 
