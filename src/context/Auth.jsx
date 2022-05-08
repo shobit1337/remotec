@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
 import {
   GoogleAuthProvider,
@@ -69,10 +70,12 @@ const AuthProvider = ({ children }) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
         localStorage.setItem('token', token);
+        toast.success('Logged In Successfully!');
       })
       .catch((error) => {
         const credential = GoogleAuthProvider.credentialFromError(error);
         console.error('Failed to authenticate with google, ', error);
+        toast.error('Failed to authenticate');
       });
   };
 
@@ -92,23 +95,30 @@ const AuthProvider = ({ children }) => {
         setDoc(userRef, {
           ...userDetails,
         });
+        toast.success('Signed Up Successfully!');
       })
       .catch((error) => {
         console.error('Failed to signup user, ', error);
+        toast.error('Failed to Sign up');
       });
   };
 
   const signin = async (email, password) => {
-    return await signInWithEmailAndPassword(auth, email, password).catch((error) => {
-      console.error('Failed to authenticate email and password, ', error);
-    });
+    return await signInWithEmailAndPassword(auth, email, password)
+      .then(toast.success((_) => 'Logged In Successfully!'))
+      .catch((error) => {
+        console.error('Failed to authenticate email and password, ', error);
+        toast.error('Failed to Sign In');
+      });
   };
 
   const signout = async () => {
     localStorage.removeItem('token');
-    return await signOut(auth).catch((error) => {
+    await signOut(auth).catch((error) => {
       console.error('Failed to signout user, ', error);
+      toast.error('Failed to Sign Out');
     });
+    toast.success('Logged Out Successfully!');
   };
 
   const value = {

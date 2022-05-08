@@ -75,7 +75,7 @@ const TasksTable = () => {
           {projectTasks?.map((task) => (
             <TableRow
               key={task.uid}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 }, cursor: 'pointer' }}
               onClick={() => handleSelectTask(task)}>
               <TableCell component='th' scope='row'>
                 {task.name}
