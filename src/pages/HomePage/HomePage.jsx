@@ -58,6 +58,7 @@ const HomePage = () => {
   const [projects, setProjects] = useState([]);
   const [meetForm, setMeetForm] = useState(false);
   const [finalMeeting, setFinalMeeting] = useState({});
+  const [email, setEmail] = useState('');
   const [workMates, setWorkMates] = useState([]);
   const [noteInput, setNotesInput] = useState('');
   const [isProjectModelOpen, setIsProjectModelOpen] = useState(false);
@@ -217,7 +218,13 @@ const HomePage = () => {
                         view profile
                       </Button>
                     ) : (
-                      <Button size='small' variant='outlined' onClick={handleClickOpenClose}>
+                      <Button
+                        size='small'
+                        variant='outlined'
+                        onClick={() => {
+                          handleClickOpenClose();
+                          setEmail(workMate?.email);
+                        }}>
                         Meeting
                       </Button>
                     )}
@@ -226,6 +233,7 @@ const HomePage = () => {
                         setFinalMeeting={setFinalMeeting}
                         handleClickOpenClose={handleClickOpenClose}
                         meetForm={meetForm}
+                        memberEmail={email}
                       />
                     )}
                   </Stack>

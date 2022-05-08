@@ -21,7 +21,7 @@ const EventCard = ({ event }) => {
     <div>
       <Paper sx={{ width: 250 }}>
         <Stack spacing={0}>
-          <Div align='center' sx={{ backgroundColor: randColor[400] }}>
+          <Div align='center' sx={{ backgroundColor: randColor[300], color: 'white' }}>
             {getDate(event.start.dateTime || event.start.date)}
           </Div>
           <Stack className='event-box'>

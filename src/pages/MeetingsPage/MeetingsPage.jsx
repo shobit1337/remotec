@@ -77,8 +77,12 @@ const MeetingsPage = () => {
         maxWidth='xl'
         disableGutters>
         {/* {!googleUser && ( */}
-        <Button variant='contained' onClick={loginHandler} startIcon={<GoogleIcon />}>
-          Login with Google to sync calendar events
+        <Button
+          variant='contained'
+          onClick={loginHandler}
+          startIcon={<GoogleIcon />}
+          sx={{ position: 'fixed', top: '5rem', right: '3rem', borderRadius: '1rem' }}>
+          Login
         </Button>
         {/* )} */}
         <FloatingButton onClick={handleClickOpenClose} />

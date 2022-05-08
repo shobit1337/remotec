@@ -51,7 +51,7 @@ const MenuProps = {
 //   'Kelly@Snyder.com',
 // ];
 
-const NewMeetingForm = ({ setFinalMeeting, handleClickOpenClose, meetForm }) => {
+const NewMeetingForm = ({ setFinalMeeting, handleClickOpenClose, meetForm, memberEmail = '' }) => {
   const [meeting, setMeeting] = useState({
     name: '',
     summary: '',
@@ -62,7 +62,7 @@ const NewMeetingForm = ({ setFinalMeeting, handleClickOpenClose, meetForm }) => 
     attendees: [],
   });
   const [names, setNames] = useState([]);
-  const [attendee, setAttendee] = useState([]);
+  const [attendee, setAttendee] = useState(memberEmail ? [memberEmail] : []);
   const { workspace } = useWorkspace();
 
   const setMeetingHandler = (field, value) => {
