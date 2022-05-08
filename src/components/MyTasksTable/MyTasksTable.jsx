@@ -10,26 +10,26 @@ import {
   TableRow,
 } from '@mui/material/';
 
-function createData(task, assignee, dueDate) {
-  return { task, assignee, dueDate };
+function createData(task, projects, dueDate) {
+  return { task, projects, dueDate };
 }
 
 const rows = [
-  createData('Frozen yoghurt', 159, 6.0),
-  createData('Ice cream sandwich', 237, 9.0),
-  createData('Eclair', 262, 16.0),
-  createData('Cupcake', 305, 3.7),
-  createData('Gingerbread', 356, 16.0),
-  createData('Gingerbread', 356, 16.0),
-  createData('Gingerbread', 356, 16.0),
-  createData('Gingerbread', 356, 16.0),
-  createData('Gingerbread', 356, 16.0),
-  createData('Gingerbread', 356, 16.0),
-  createData('Gingerbread', 356, 16.0),
-  createData('Gingerbread', 356, 16.0),
-  createData('Gingerbread', 356, 16.0),
-  createData('Gingerbread', 356, 16.0),
-  createData('Gingerbread', 356, 16.0),
+  createData('Frozen yoghurt', 159, 'Project Name'),
+  createData('Ice cream sandwich', 237, 'Project Name'),
+  createData('Eclair', 262, 'Project Name'),
+  createData('Cupcake', 305, 'Project Name'),
+  createData('Gingerbread', 356, 'Project Name'),
+  createData('Gingerbread', 356, 'Project Name'),
+  createData('Gingerbread', 356, 'Project Name'),
+  createData('Gingerbread', 356, 'Project Name'),
+  createData('Gingerbread', 356, 'Project Name'),
+  createData('Gingerbread', 356, 'Project Name'),
+  createData('Gingerbread', 356, 'Project Name'),
+  createData('Gingerbread', 356, 'Project Name'),
+  createData('Gingerbread', 356, 'Project Name'),
+  createData('Gingerbread', 356, 'Project Name'),
+  createData('Gingerbread', 356, 'Project Name'),
 ];
 
 const MyTasksTable = () => {
@@ -46,8 +46,8 @@ const MyTasksTable = () => {
         <TableHead>
           <TableRow>
             <TableCell>Tasks</TableCell>
-            <TableCell align='right'>Assignee</TableCell>
             <TableCell align='right'>Due Date</TableCell>
+            <TableCell align='right'>Projects</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -56,7 +56,7 @@ const MyTasksTable = () => {
               <TableCell component='th' scope='row'>
                 {row.task}
               </TableCell>
-              <TableCell align='right'>{row.assignee}</TableCell>
+              <TableCell align='right'>{row.projects}</TableCell>
               <TableCell align='right'>{row.dueDate}</TableCell>
             </TableRow>
           ))}
