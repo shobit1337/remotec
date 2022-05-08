@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import CloseIcon from '@mui/icons-material/Close';
 import { DateTimePicker, LocalizationProvider } from '@mui/lab';
@@ -24,6 +24,8 @@ import {
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
 import FloatingButton from '../../../components/FloatingButton/FloatingButton';
+import { useWorkspace } from '../../../context';
+import { getAllWorkspaceMemebers } from '../../../utils/members';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -36,21 +38,20 @@ const MenuProps = {
   },
 };
 
-const names = [
-  'OliverHansen@gmail.com',
-  'VanHenry@mui.com',
-  'AprilTucker@mdeu.com',
-  'RalphHubbard@jndejkmd.com',
-  'OmarAlexander@ude.com',
-  'CarlosAbbott@example.com',
-  'MiriamWagner@new.com',
-  'BradleyWilkerson@jnef.com',
-  'VirginiaAndrews@efkm.com',
-  'Kelly@Snyder.com',
-];
+// const names = [
+//   'OliverHansen@gmail.com',
+//   'VanHenry@mui.com',
+//   'AprilTucker@mdeu.com',
+//   'RalphHubbard@jndejkmd.com',
+//   'OmarAlexander@ude.com',
+//   'CarlosAbbott@example.com',
+//   'MiriamWagner@new.com',
+//   'BradleyWilkerson@jnef.com',
+//   'VirginiaAndrews@efkm.com',
+//   'Kelly@Snyder.com',
+// ];
 
-const NewMeetingForm = ({ setFinalMeeting }) => {
-  const [open, setOpen] = useState(false);
+const NewMeetingForm = ({ setFinalMeeting, handleClickOpenClose, meetForm, memberEmail = '' }) => {
   const [meeting, setMeeting] = useState({
     name: '',
     summary: '',
@@ -60,11 +61,9 @@ const NewMeetingForm = ({ setFinalMeeting }) => {
     needsMeetLink: false,
     attendees: [],
   });
-  const [attendee, setAttendee] = useState([]);
-
-  const handleClickOpenClose = () => {
-    setOpen((prev) => !prev);
-  };
+  const [names, setNames] = useState([]);
+  const [attendee, setAttendee] = useState(memberEmail ? [memberEmail] : []);
+  const { workspace } = useWorkspace();
 
   const setMeetingHandler = (field, value) => {
     setMeeting({ ...meeting, [field]: value });
@@ -129,6 +128,7 @@ const NewMeetingForm = ({ setFinalMeeting }) => {
       console.log(event);
       setFinalMeeting(event);
       // window.open(event.htmlLink);
+      handleClickOpenClose();
       setMeeting({
         name: '',
         summary: '',
@@ -141,10 +141,16 @@ const NewMeetingForm = ({ setFinalMeeting }) => {
     });
   };
 
+  useEffect(() => {
+    (async () => {
+      const temp = await getAllWorkspaceMemebers(workspace.uid);
+      temp.forEach((user) => setNames((prev) => [...prev, user.email]));
+    })();
+  }, [workspace.uid]);
   return (
     <div>
       <FloatingButton onClick={handleClickOpenClose} />
-      <Dialog open={open} onClose={handleClickOpenClose} fullWidth scroll='paper'>
+      <Dialog open={meetForm} onClose={handleClickOpenClose} fullWidth scroll='paper'>
         <DialogTitle>Schedule a meeting</DialogTitle>
         <IconButton
           aria-label='close'
@@ -235,7 +241,7 @@ const NewMeetingForm = ({ setFinalMeeting }) => {
             </Stack>
           </DialogContent>
           <DialogActions>
-            <Button type='submit' variant='contained' onClick={handleClickOpenClose}>
+            <Button type='submit' variant='contained'>
               Create
             </Button>
           </DialogActions>
