@@ -15,38 +15,54 @@ import {
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-export const options = {
+const options = {
   responsive: false,
   plugins: {
     legend: {
       position: 'top',
     },
-    title: {
-      display: true,
-      text: 'Tasks by Asignee',
-    },
   },
 };
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+const BarGraph = ({ tasks, names }) => {
+  let unique = [];
+  for (let i in names) {
+    unique.push(tasks.filter((curItem) => curItem.assigned.uid === names[i].uid));
+  }
 
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: 'To dos',
-      data: [2, 3, 4, 5, 6, 7, 8],
-      backgroundColor: lightBlue[300],
-    },
-    {
-      label: 'Completed',
-      data: [5, 4, 2, 1, 7, 9, 6],
-      backgroundColor: orange[300],
-    },
-  ],
-};
-
-const BarGraph = () => {
+  let finalArray = [];
+  for (let curr in unique) {
+    finalArray.push(
+      unique[curr].reduce(
+        (acc, cur) =>
+          cur.status === 'Done'
+            ? { ...acc, totalDone: acc.totalDone + 1 }
+            : { ...acc, totalNotDone: acc.totalNotDone + 1 },
+        {
+          name: unique[curr][0].assigned.name,
+          uid: unique[curr][0].assigned.uid,
+          totalDone: 0,
+          totalNotDone: 0,
+        },
+      ),
+    );
+  }
+  const labels = finalArray.map((cur) => cur.name);
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: 'To dos',
+        data: finalArray.map((cur) => cur.totalNotDone),
+        backgroundColor: lightBlue[300],
+      },
+      {
+        label: 'Completed',
+        data: finalArray.map((cur) => cur.totalDone),
+        backgroundColor: orange[300],
+      },
+    ],
+  };
   return <Bar options={options} data={data} style={{ width: '100%' }} />;
 };
 
