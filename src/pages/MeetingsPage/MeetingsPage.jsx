@@ -71,11 +71,11 @@ const MeetingsPage = () => {
         }}
         maxWidth='xl'
         disableGutters>
-        {!googleUser && (
-          <Button variant='contained' onClick={loginHandler} startIcon={<GoogleIcon />}>
-            Login with Google to sync calendar events
-          </Button>
-        )}
+        {/* {!googleUser && ( */}
+        <Button variant='contained' onClick={loginHandler} startIcon={<GoogleIcon />}>
+          Login with Google to sync calendar events
+        </Button>
+        {/* )} */}
         <NewMeetingForm setFinalMeeting={setFinalMeeting} />
         <div className='grid-layout'>
           {eventsFromUser.map((event) => (
