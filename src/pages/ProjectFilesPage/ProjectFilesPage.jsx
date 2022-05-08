@@ -8,7 +8,13 @@ const flexCenter = { display: 'flex', alignItems: 'center', justifyContent: 'cen
 
 const ProjectFilesPage = () => {
   return (
-    <Container maxWidth={false} sx={{ ...flexCenter }}>
+    <Container
+      sx={{
+        marginTop: '2rem',
+        marginBottom: { xs: '3rem', md: '0' },
+        height: { md: `calc(100vh - 11rem)`, xs: `calc(100vh - 14.5rem)` },
+        overflowY: 'auto',
+      }}>
       {/* <Paper variant='outlined' sx={{ ...flexCenter, width: '30rem', height: '20rem' }}>
         <Stack
           sx={{
@@ -22,11 +28,12 @@ const ProjectFilesPage = () => {
       </Paper> */}
       <Box
         sx={{
-          justifyContent: 'space-between',
           p: '2rem',
+          paddingTop: 0,
           width: '100%',
           display: 'flex',
           flexWrap: 'wrap',
+          justifyContent: 'center',
           gap: '2rem',
         }}>
         {[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map((e) => (

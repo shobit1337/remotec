@@ -15,7 +15,13 @@ const paperStyles = {
 
 const ProjectDashboardPage = () => {
   return (
-    <Container sx={{ minHeight: '100vh' }}>
+    <Container
+      sx={{
+        height: { md: `calc(100vh - 11rem)`, xs: `calc(100vh - 14.5rem)` },
+        overflowX: 'auto',
+        marginTop: '2rem',
+        marginBottom: { xs: '2rem', md: '0' },
+      }}>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={4}>
           <Paper variant='outlined' sx={{ ...flexCenterColumn, ...paperStyles }}>
