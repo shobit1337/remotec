@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import GoogleIcon from '@mui/icons-material/Google';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Avatar, Box, Button, Container, Grid, Paper, TextField, Typography } from '@mui/material';
 
@@ -17,37 +18,19 @@ const SignIn = () => {
     e.preventDefault();
     signin(inputFieldValues.email, inputFieldValues.password);
   };
-
-  // const gapi = window.gapi;
-  // gapi.load('client', () => {
-  //   console.log('loaded client');
-
-  //   // const CLIENT_ID = '976439338379-ddv0i53kracqq6dai54mlunomgen30jl.apps.googleusercontent.com';
-  //   // const API_KEY = 'AIzaSyDgWwLJs73HaIHN25qGvKJBEIas2y0UhuE';
-  //   const DISCOVERY_DOCS = 'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest';
-  //   const SCOPES =
-  //     'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile openid https://www.googleapis.com/auth/calendar.events';
-
-  //   gapi.client.init({
-  //     apiKey: import.meta.env.VITE_API_KEY,
-  //     clientId: import.meta.env.VITE_CLIENT_ID,
-  //     discoveryDocs: DISCOVERY_DOCS,
-  //     scope: SCOPES,
-  //   });
-  //   gapi.client.load('calendar', 'v3', () => console.log('bam!'));
-  // });
-  // async function loginHandler() {
-  //   const googleAuth = gapi.auth2.getAuthInstance();
-  //   console.log(googleAuth);
-  //   const googleUser = await googleAuth.signIn();
-  //   console.log(googleUser);
-  // }
-
   return (
-    <Container sx={{ minHeight: '100vh' }}>
+    <Container maxWidth={false} disableGutters>
       <Grid container component='main' sx={{ padding: 0, minHeight: '100vh', width: '100%' }}>
         <GridImage />
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        <Grid
+          sx={{ display: 'flex', alignItems: 'center' }}
+          item
+          xs={12}
+          sm={8}
+          md={5}
+          component={Paper}
+          elevation={6}
+          square>
           <Box
             sx={{
               my: 4,
@@ -56,7 +39,7 @@ const SignIn = () => {
               flexDirection: 'column',
               alignItems: 'center',
             }}>
-            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <Avatar sx={{ m: 1, bgcolor: 'primary.dark' }}>
               <LockOutlinedIcon />
             </Avatar>
             <Typography component='h1' variant='h5'>
@@ -91,26 +74,17 @@ const SignIn = () => {
                 <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 1 }}>
                   Sign In
                 </Button>
-                {/* <button onClick={loginHandler}>Google</button> */}
                 <Button
+                  startIcon={<GoogleIcon />}
                   onClick={loginWithGoogle}
                   fullWidth
                   variant='contained'
                   sx={{ mt: 1, mb: 2 }}>
                   Sign In with Google account
                 </Button>
-                <Grid container>
-                  <Grid item xs>
-                    <Link to='/' variant='body2' style={{ color: 'inherit' }}>
-                      Forgot password?
-                    </Link>
-                  </Grid>
-                  <Grid item>
-                    <Link to='/signup' variant='body2' style={{ color: 'inherit' }}>
-                      {"Don't have an account? Sign Up"}
-                    </Link>
-                  </Grid>
-                </Grid>
+                <Link to='/signup' variant='body2' style={{ color: 'inherit' }}>
+                  {"Don't have an account? Sign Up"}
+                </Link>
               </Box>
             </form>
           </Box>

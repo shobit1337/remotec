@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import GoogleIcon from '@mui/icons-material/Google';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Avatar, Box, Button, Container, Grid, Paper, TextField, Typography } from '@mui/material';
 
@@ -19,10 +20,18 @@ const SignUp = () => {
     signup(inputFieldValues);
   };
   return (
-    <Container sx={{ minHeight: '100vh' }}>
+    <Container maxWidth={false} disableGutters>
       <Grid container component='main' sx={{ padding: 0, minHeight: '100vh', width: '100%' }}>
         <GridImage />
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        <Grid
+          sx={{ display: 'flex', alignItems: 'center' }}
+          item
+          xs={12}
+          sm={8}
+          md={5}
+          component={Paper}
+          elevation={6}
+          square>
           <Box
             sx={{
               my: 4,
@@ -31,7 +40,7 @@ const SignUp = () => {
               flexDirection: 'column',
               alignItems: 'center',
             }}>
-            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <Avatar sx={{ m: 1, bgcolor: 'primary.dark' }}>
               <LockOutlinedIcon />
             </Avatar>
             <Typography component='h1' variant='h5'>
@@ -76,12 +85,16 @@ const SignUp = () => {
                 <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 1 }}>
                   Sign Up
                 </Button>
-                <Button fullWidth variant='contained' sx={{ mt: 1, mb: 2 }}>
+                <Button
+                  startIcon={<GoogleIcon />}
+                  fullWidth
+                  variant='contained'
+                  sx={{ mt: 1, mb: 2 }}>
                   Sign In with Google account
                 </Button>
                 <Grid container>
                   <Grid item>
-                    <Link to='/login' variant='body2' style={{ color: 'inherit' }}>
+                    <Link to='/' variant='body2' style={{ color: 'inherit' }}>
                       Already have an account?
                     </Link>
                   </Grid>
