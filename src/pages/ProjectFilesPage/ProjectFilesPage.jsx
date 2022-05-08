@@ -36,9 +36,10 @@ const ProjectFilesPage = () => {
           justifyContent: 'center',
           gap: '2rem',
         }}>
-        {[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map((e) => (
+        {[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map((_, index) => (
           <Paper
             variant='outlined'
+            key={index}
             sx={{
               cursor: 'pointer',
             }}>

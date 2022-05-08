@@ -4,3 +4,28 @@
 .modal {
   display: none;
 }
+
+.event-box {
+  padding: 0.5rem 1rem;
+  font-size: 3rem;
+}
+
+.event-box > p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.ellipsis {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+}
+
+.grid-layout {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem 1rem;
+}

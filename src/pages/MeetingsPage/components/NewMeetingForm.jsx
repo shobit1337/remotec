@@ -23,6 +23,8 @@ import {
 } from '@mui/material';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
+import FloatingButton from '../../../components';
+
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -35,21 +37,30 @@ const MenuProps = {
 };
 
 const names = [
-  'Oliver Hansen',
-  'Van Henry',
-  'April Tucker',
-  'Ralph Hubbard',
-  'Omar Alexander',
-  'Carlos Abbott',
-  'Miriam Wagner',
-  'Bradley Wilkerson',
-  'Virginia Andrews',
-  'Kelly Snyder',
+  'OliverHansen@gmail.com',
+  'VanHenry@mui.com',
+  'AprilTucker@mdeu.com',
+  'RalphHubbard@jndejkmd.com',
+  'OmarAlexander@ude.com',
+  'CarlosAbbott@example.com',
+  'MiriamWagner@new.com',
+  'BradleyWilkerson@jnef.com',
+  'VirginiaAndrews@efkm.com',
+  'Kelly@Snyder.com',
 ];
 
-const NewMeetingForm = ({ meeting, setMeeting }) => {
+const NewMeetingForm = ({ setFinalMeeting }) => {
   const [open, setOpen] = useState(false);
-  const [attendee, setAttendee] = React.useState([]);
+  const [meeting, setMeeting] = useState({
+    name: '',
+    summary: '',
+    location: '',
+    startTime: new Date(),
+    endTime: new Date(),
+    needsMeetLink: false,
+    attendees: [],
+  });
+  const [attendee, setAttendee] = useState([]);
 
   const handleClickOpenClose = () => {
     setOpen((prev) => !prev);
@@ -69,18 +80,70 @@ const NewMeetingForm = ({ meeting, setMeeting }) => {
         email: item,
       };
     });
-
     setMeeting({
       ...meeting,
       attendees: attendeesInDesiredFormat,
     });
   };
+  const createEventHandler = async (e) => {
+    e.preventDefault();
+    let event = {
+      summary: meeting.name,
+      location: meeting.location,
+      description: meeting.summary,
+      start: {
+        dateTime: new Date(meeting.startTime).toISOString(),
+      },
+      end: {
+        dateTime: new Date(meeting.endTime).toISOString(),
+      },
+      attendees: meeting.attendees,
+      reminders: {
+        useDefault: false,
+        overrides: [{ method: 'popup', minutes: 10 }],
+      },
+    };
+    const eventWithConference = {
+      conferenceData: {
+        createRequest: {
+          requestId: 'JksKJJSK1KJSndjennjnjeK',
+          conferenceSolutionKey: {
+            type: 'hangoutsMeet',
+          },
+        },
+      },
+    };
+    if (meeting.needsMeetLink) {
+      event = {
+        ...event,
+        ...eventWithConference,
+      };
+    }
+
+    let request = gapi.client.calendar.events.insert({
+      calendarId: 'primary',
+      resource: event,
+      conferenceDataVersion: 1,
+    });
+    request.execute((event) => {
+      console.log(event);
+      setFinalMeeting(event);
+      // window.open(event.htmlLink);
+      setMeeting({
+        name: '',
+        summary: '',
+        location: '',
+        startTime: new Date(),
+        endTime: new Date(),
+        needsMeetLink: false,
+        attendees: [],
+      });
+    });
+  };
 
   return (
     <div>
-      <Button variant='outlined' onClick={handleClickOpenClose}>
-        Open form dialog
-      </Button>
+      <FloatingButton onClick={handleClickOpenClose} />
       <Dialog open={open} onClose={handleClickOpenClose} fullWidth scroll='paper'>
         <DialogTitle>Schedule a meeting</DialogTitle>
         <IconButton
@@ -94,7 +157,7 @@ const NewMeetingForm = ({ meeting, setMeeting }) => {
           }}>
           <CloseIcon />
         </IconButton>
-        <form onSubmit={(e) => e.preventDefault()}>
+        <form onSubmit={createEventHandler}>
           <DialogContent>
             <Stack spacing={3}>
               <TextField
