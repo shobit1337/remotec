@@ -47,11 +47,7 @@ const BarGraph = ({ tasks, names }) => {
       ),
     );
   }
-
-  console.log(finalArray);
-
   const labels = finalArray.map((cur) => cur.name);
-
   const data = {
     labels,
     datasets: [
