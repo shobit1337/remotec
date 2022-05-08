@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 import LogoutIcon from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -32,6 +33,8 @@ const AppBar = styled(MuiAppBar, {
 const Navbar = ({ open, handleDrawerOpen }) => {
   const { signout } = useAuth();
   const theme = useTheme();
+  const { pathname } = useLocation();
+
   return (
     <AppBar
       position='fixed'
@@ -54,17 +57,17 @@ const Navbar = ({ open, handleDrawerOpen }) => {
           sx={{ mr: 2, ...(open && { display: 'none' }) }}>
           <MenuIcon />
         </IconButton>
-        <Typography variant='h6' noWrap component='div'>
-          Persistent drawer
+        <Typography sx={{ textTransform: 'capitalize' }} variant='h6' noWrap component='div'>
+          {pathname.split('/')[1]}
         </Typography>
       </Toolbar>
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <ThemeToggler />
-        <IconButton>
-          <PersonIcon fontSize='large' />
+        <IconButton component={Link} to='/profile' sx={{ marginRight: '1rem' }}>
+          <PersonIcon fontSize='medium' />
         </IconButton>
-        <IconButton onClick={signout}>
-          <LogoutIcon fontSize='large' />
+        <IconButton onClick={signout} sx={{ marginRight: '1rem' }}>
+          <LogoutIcon fontSize='medium' />
         </IconButton>
       </Box>
     </AppBar>
