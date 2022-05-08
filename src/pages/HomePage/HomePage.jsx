@@ -22,7 +22,7 @@ import { ProjectModal } from '../../components';
 import { useAuth, useWorkspace } from '../../context';
 import { flexCenter } from '../../styles/commonObjectStyles';
 import { getAllWorkspaceMemebers } from '../../utils/members';
-import { getAllProjects } from '../../utils/team';
+import { getAllProjects } from '../../utils/project';
 import { getUserNotes, updateUserNotes } from '../../utils/userNote';
 
 const paperSx = {

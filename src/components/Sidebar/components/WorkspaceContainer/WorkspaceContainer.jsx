@@ -15,7 +15,7 @@ import {
 } from '@mui/material';
 
 import { useWorkspace } from '../../../../context';
-import { getAllProjects } from '../../../../utils/team';
+import { getAllProjects } from '../../../../utils/project';
 import ProjectModal from '../../../ProjectModal/ProjectModal';
 
 const WorkspaceContainer = () => {

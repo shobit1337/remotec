@@ -2,7 +2,7 @@ import { collection, doc, getDoc, getDocs, query, setDoc, where } from 'firebase
 import { v4 as uuid } from 'uuid';
 
 import { db } from '../../firebase/config';
-import { addWorkspaceMember } from '../teammate';
+import { addWorkspaceMember } from '../members';
 
 export const createWorkspace = async (name, description, user) => {
   const workspaceObj = {
