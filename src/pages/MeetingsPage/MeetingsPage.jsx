@@ -4,6 +4,7 @@ import GoogleIcon from '@mui/icons-material/Google';
 import { Masonry } from '@mui/lab';
 import { Button, Container } from '@mui/material';
 
+import { FloatingButton } from '../../components';
 import EventCard from './components/EventCard';
 import NewMeetingForm from './components/NewMeetingForm';
 
@@ -13,10 +14,14 @@ const SCOPES =
 
 const MeetingsPage = () => {
   const [eventsFromUser, setEventsFromUser] = useState([]);
+  const [meetForm, setMeetForm] = useState(false);
   const [finalMeeting, setFinalMeeting] = useState({});
   const [googleUser, setGoogleUser] = useState(
     JSON.parse(localStorage.getItem('googleUser')) || {},
   );
+  const handleClickOpenClose = () => {
+    setMeetForm((prev) => !prev);
+  };
 
   useEffect(() => {
     (async () => {
@@ -76,7 +81,14 @@ const MeetingsPage = () => {
           Login with Google to sync calendar events
         </Button>
         {/* )} */}
-        <NewMeetingForm setFinalMeeting={setFinalMeeting} />
+        <FloatingButton onClick={handleClickOpenClose} />
+        {meetForm && (
+          <NewMeetingForm
+            setFinalMeeting={setFinalMeeting}
+            handleClickOpenClose={handleClickOpenClose}
+            meetForm={meetForm}
+          />
+        )}
         <div className='grid-layout'>
           {eventsFromUser.map((event) => (
             <EventCard key={event.id} event={event} />

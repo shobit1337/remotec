@@ -27,6 +27,7 @@ import { getDate, getDay } from '../../utils';
 import { getAllWorkspaceMemebers } from '../../utils/members';
 import { getAllProjects } from '../../utils/project';
 import { getUserNotes, updateUserNotes } from '../../utils/userNote';
+import NewMeetingForm from '../MeetingsPage/components/NewMeetingForm';
 
 const paperSx = {
   width: '100%',
@@ -55,6 +56,8 @@ const getTodaysDate = (() => {
 const HomePage = () => {
   const theme = useTheme();
   const [projects, setProjects] = useState([]);
+  const [meetForm, setMeetForm] = useState(false);
+  const [finalMeeting, setFinalMeeting] = useState({});
   const [workMates, setWorkMates] = useState([]);
   const [noteInput, setNotesInput] = useState('');
   const [isProjectModelOpen, setIsProjectModelOpen] = useState(false);
@@ -62,6 +65,10 @@ const HomePage = () => {
   const { workspace } = useWorkspace();
   const navigate = useNavigate();
   const { currentUser } = useAuth();
+
+  const handleClickOpenClose = () => {
+    setMeetForm((prev) => !prev);
+  };
 
   useEffect(() => {
     (async () => {
@@ -210,9 +217,16 @@ const HomePage = () => {
                         view profile
                       </Button>
                     ) : (
-                      <Button size='small' variant='outlined'>
+                      <Button size='small' variant='outlined' onClick={handleClickOpenClose}>
                         Meeting
                       </Button>
+                    )}
+                    {meetForm && (
+                      <NewMeetingForm
+                        setFinalMeeting={setFinalMeeting}
+                        handleClickOpenClose={handleClickOpenClose}
+                        meetForm={meetForm}
+                      />
                     )}
                   </Stack>
                 </Paper>
