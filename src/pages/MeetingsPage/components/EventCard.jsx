@@ -1,5 +1,6 @@
 import React from 'react';
 
+import PhotoCameraFrontIcon from '@mui/icons-material/PhotoCameraFront';
 import { Button, Link, Paper, Stack, Typography } from '@mui/material';
 import { grey, indigo, lightGreen, pink, teal } from '@mui/material/colors';
 import { styled } from '@mui/material/styles';
@@ -24,27 +25,33 @@ const EventCard = ({ event }) => {
             {getDate(event.start.dateTime || event.start.date)}
           </Div>
           <Stack className='event-box'>
-            <Typography variant='h6'>{event.summary}</Typography>
+            <Typography variant='h6' className='ellipsis'>
+              {event.summary}
+            </Typography>
             <Typography variant='subtitle2' sx={{ color: grey[500] }}>
               {event.start.dateTime &&
                 `${getDateTime(event.start.dateTime)} - ${getDateTime(event.end.dateTime)}`}
             </Typography>
             <Typography variant='subtitle1'>{event.location}</Typography>
-            <Typography className='ellipsis' variant='subtitle1'>
+            <Typography noWrap variant='subtitle1'>
               {event.description}
             </Typography>
             <Typography variant='subtitle1'>
               {event.hangoutLink && (
-                <Link color='inherit' target='_blank' href={`${event.hangoutLink}`}>
+                <Button
+                  variant='text'
+                  target='_blank'
+                  href={`${event.hangoutLink}`}
+                  endIcon={<PhotoCameraFrontIcon />}>
                   Join meeting
-                </Link>
+                </Button>
               )}
             </Typography>
             <Button
               variant='contained'
               sx={{
                 backgroundColor: randColor[300],
-                marginTop: '1rem',
+                marginTop: '0.5rem',
                 '&:hover': {
                   background: randColor[400],
                 },

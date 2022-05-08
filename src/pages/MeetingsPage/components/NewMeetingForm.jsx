@@ -23,7 +23,7 @@ import {
 } from '@mui/material';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
-import FloatingButton from '../../../components';
+import FloatingButton from '../../../components/FloatingButton/FloatingButton';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
