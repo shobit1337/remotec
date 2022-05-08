@@ -5,7 +5,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import PersonIcon from '@mui/icons-material/Person';
 import { Box, IconButton, Toolbar, Typography } from '@mui/material';
 import MuiAppBar from '@mui/material/AppBar';
-import { styled } from '@mui/material/styles';
+import { styled, useTheme } from '@mui/material/styles';
 
 import { ThemeToggler } from '../';
 import { useAuth } from '../../context';
@@ -31,6 +31,7 @@ const AppBar = styled(MuiAppBar, {
 
 const Navbar = ({ open, handleDrawerOpen }) => {
   const { signout } = useAuth();
+  const theme = useTheme();
   return (
     <AppBar
       position='fixed'
@@ -40,6 +41,8 @@ const Navbar = ({ open, handleDrawerOpen }) => {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
+        backgroundColor: theme.palette.background.default,
+        color: 'inherit',
       }}
       open={open}>
       <Toolbar>

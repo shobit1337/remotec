@@ -63,7 +63,7 @@ const HomePage = () => {
             sx={{
               ...paperSx,
             }}>
-            <Typography variant='h6' gutterBottom>
+            <Typography variant='h6' sx={{ marginBottom: '1rem' }} gutterBottom>
               Projects
             </Typography>
             <Grid
@@ -122,7 +122,7 @@ const HomePage = () => {
             </Grid>
           </Paper>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} sx={{ marginBottom: { xs: '4rem', md: '0' } }}>
           <Paper
             variant='outlined'
             sx={{

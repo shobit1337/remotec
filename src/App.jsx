@@ -13,6 +13,7 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
+    paddingBottom: 0,
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -57,15 +58,13 @@ function App() {
   }, [currentUser, navigate]);
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', height: '100vh' }}>
       <CssBaseline />
       <Sidebar DrawerHeader={DrawerHeader} handleDrawerClose={handleDrawerClose} open={open} />
       <Navbar open={open} handleDrawerOpen={handleDrawerOpen} />
       <Main open={open}>
         <DrawerHeader />
-        <Typography>
-          <Outlet />
-        </Typography>
+        <Outlet />
       </Main>
       <Bottombar />
     </Box>
