@@ -64,8 +64,8 @@ const TeamsPage = () => {
         id={workspace?.uid}
       />
       <Box sx={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-        <Typography variant='h5'>Team Name</Typography>
-        <Button title='Copy team code'>
+        <Typography variant='h5'> {workspace.name.toUpperCase()} </Typography>
+        <Button title='Copy team code' onClick={() => navigator.clipboard.writeText(workspace.uid)}>
           <Typography sx={{ fontSize: '0.8em' }}> Copy team code </Typography>
         </Button>
       </Box>

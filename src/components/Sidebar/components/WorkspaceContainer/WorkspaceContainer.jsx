@@ -41,8 +41,13 @@ const WorkspaceContainer = () => {
         direction='row'
         justifyContent='space-between'
         alignItems='center'
-        sx={{ padding: '1rem' }}>
-        <Typography variant='h6'>{workspace?.name}</Typography>
+        sx={{ padding: '1rem 1rem 0 1rem' }}>
+        <Typography
+          variant='h6'
+          sx={{ cursor: 'pointer' }}
+          onClick={() => navigate(`/team/${workspace.uid}`)}>
+          {workspace?.name.toUpperCase()}
+        </Typography>
         <IconButton onClick={toggleOpen}>
           <AddIcon />
         </IconButton>
