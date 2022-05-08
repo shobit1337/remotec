@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 
 import {
   Button,
@@ -46,6 +47,7 @@ const ProjectModal = ({ open, toggleOpen, id }) => {
     e.preventDefault();
     const res = await createProject(details, id);
     setDetails({ name: '', description: '', themeColor: '' });
+    toast.success('Project Created Successfully');
     toggleOpen();
   };
 
