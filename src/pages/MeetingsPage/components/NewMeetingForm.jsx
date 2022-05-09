@@ -38,19 +38,6 @@ const MenuProps = {
   },
 };
 
-// const names = [
-//   'OliverHansen@gmail.com',
-//   'VanHenry@mui.com',
-//   'AprilTucker@mdeu.com',
-//   'RalphHubbard@jndejkmd.com',
-//   'OmarAlexander@ude.com',
-//   'CarlosAbbott@example.com',
-//   'MiriamWagner@new.com',
-//   'BradleyWilkerson@jnef.com',
-//   'VirginiaAndrews@efkm.com',
-//   'Kelly@Snyder.com',
-// ];
-
 const NewMeetingForm = ({ setFinalMeeting, handleClickOpenClose, meetForm, memberEmail = '' }) => {
   const [meeting, setMeeting] = useState({
     name: '',
