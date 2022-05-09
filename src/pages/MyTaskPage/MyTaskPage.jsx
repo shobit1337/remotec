@@ -31,7 +31,7 @@ const MyTaskPage = () => {
   };
 
   const findProjectName = (id) => {
-    return projectList?.find((item) => item.uid === id).name;
+    return projectList?.find((item) => item.uid === id)?.name;
   };
 
   useEffect(() => {
