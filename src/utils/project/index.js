@@ -17,6 +17,12 @@ export const getProjectData = async (workspaceId, projectId) => {
   return data;
 };
 
+export const getSingleProjectData = async (projectId) => {
+  const projectRef = doc(collection(db, 'projects'), projectId);
+  let projectData = await getDoc(projectRef);
+  return projectData.data();
+};
+
 export const createProject = async (details, workspaceId) => {
   const projectObj = {
     uid: uuid(),
@@ -46,6 +52,34 @@ export const createProject = async (details, workspaceId) => {
     );
     return projectObj;
   }
+};
+
+export const addFileInProject = async (projectId, url, name) => {
+  const projectRef = doc(collection(db, 'projects'), projectId);
+
+  let projectData = await getSingleProjectData(projectId);
+
+  await setDoc(
+    projectRef,
+    {
+      files: [...projectData.files, { name, url }],
+    },
+    { merge: true },
+  );
+};
+
+export const removeFileFromProject = async (projectId, url) => {
+  const projectRef = doc(collection(db, 'projects'), projectId);
+
+  let projectData = await getSingleProjectData(projectId);
+
+  await setDoc(
+    projectRef,
+    {
+      files: [...projectData.files.filter((ele) => ele.url !== url)],
+    },
+    { merge: true },
+  );
 };
 
 export const getAllProjects = async (workspaceId) => {
