@@ -5,7 +5,7 @@ import { Box, Container, Grid, Paper, Typography } from '@mui/material';
 import { green, indigo, red } from '@mui/material/colors';
 
 import { flexCenterColumn } from '../../styles/commonObjectStyles';
-import { getAllWorkspaceMemebers } from '../../utils/members';
+import { getAllWorkspaceMembers } from '../../utils/members';
 import { getAllProjectTasks } from '../../utils/tasks';
 import BarGraph from './components/BarGraph';
 import PieTodos from './components/PieTodos';
@@ -47,7 +47,7 @@ const ProjectDashboardPage = () => {
 
   useEffect(() => {
     (async () => {
-      const namesArray = await getAllWorkspaceMemebers(teamId);
+      const namesArray = await getAllWorkspaceMembers(teamId);
       setNames(namesArray);
     })();
   }, [teamId]);

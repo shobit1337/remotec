@@ -2,7 +2,7 @@ import { collection, doc, getDoc, getDocs, query, setDoc, where } from 'firebase
 
 import { db } from '../../firebase/config';
 
-export const getAllWorkspaceMemebers = async (workspaceId) => {
+export const getAllWorkspaceMembers = async (workspaceId) => {
   const allMembers = [];
   const q = query(collection(db, 'users'), where('workspace', 'array-contains', workspaceId));
   const querySnapshot = await getDocs(q);
