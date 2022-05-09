@@ -5,7 +5,6 @@ export { default as TeamsPage } from './TeamsPage/TeamsPage';
 export { default as ProjectPage } from './ProjectPage/ProjectPage';
 export { default as SignIn } from './AuthPage/SignIn';
 export { default as SignUp } from './AuthPage/SignUp';
-export { default as ProfilePage } from './ProfilePage/ProfilePage';
 export { default as ProjectFilesPage } from './ProjectFilesPage/ProjectFilesPage';
 export { default as ProjectDashboardPage } from './ProjectDashboardPage/ProjectDashboardPage';
 export { default as ProjectTaskPage } from './ProjectTaskPage/ProjectTaskPage';

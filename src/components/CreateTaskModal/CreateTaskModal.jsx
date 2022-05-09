@@ -230,10 +230,15 @@ const CreateTaskModal = ({ open, toggleClose, task = null }) => {
                 </MenuItem>
               </Select>
             </FormControl>
-            <Button variant='contained' component='label'>
+            {/* <Button variant='contained' component='label'>
               Upload File
-              <input type='file' hidden />
-            </Button>
+              <input
+                onChange={(e) => uploadFile(e.target.files[0],)}
+                accept='image/*'
+                type='file'
+                hidden
+              />
+            </Button> */}
           </Stack>
         </DialogContent>
         <DialogActions>
