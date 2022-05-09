@@ -16,9 +16,6 @@ const MeetingsPage = () => {
   const [eventsFromUser, setEventsFromUser] = useState([]);
   const [meetForm, setMeetForm] = useState(false);
   const [finalMeeting, setFinalMeeting] = useState({});
-  const [googleUser, setGoogleUser] = useState(
-    JSON.parse(localStorage.getItem('googleUser')) || {},
-  );
   const handleClickOpenClose = () => {
     setMeetForm((prev) => !prev);
   };
@@ -28,7 +25,6 @@ const MeetingsPage = () => {
       const gapi = window?.gapi;
       const promise = new Promise((resolve) => {
         gapi.load('client', async () => {
-          console.log('loaded client');
           gapi.client.init({
             apiKey: import.meta.env.VITE_API_KEY,
             clientId: import.meta.env.VITE_CLIENT_ID,
@@ -36,34 +32,27 @@ const MeetingsPage = () => {
             scope: SCOPES,
           });
           await gapi.client.load('calendar', 'v3', () => {
-            console.log('bam!');
+            console.log();
             resolve('resolved');
           });
         });
       });
       await Promise.resolve(promise);
-      if (googleUser) {
-        console.log('calling events');
-        const events = await gapi.client.calendar.events.list({
-          calendarId: 'primary',
-          timeMin: new Date().toISOString(),
-          showDeleted: false,
-          singleEvents: true,
-          maxResults: 15,
-          orderBy: 'startTime',
-        });
-        console.log(events.result.items);
-        setEventsFromUser(events.result.items);
-      }
+      const events = await gapi.client.calendar.events.list({
+        calendarId: 'primary',
+        timeMin: new Date().toISOString(),
+        showDeleted: false,
+        singleEvents: true,
+        maxResults: 15,
+        orderBy: 'startTime',
+      });
+      setEventsFromUser(events.result.items);
     })();
-  }, [finalMeeting, googleUser]);
+  }, [finalMeeting]);
 
   async function loginHandler() {
     const googleAuth = gapi.auth2.getAuthInstance();
-    const googleUs = await googleAuth.signIn();
-    console.log(googleUs);
-    setGoogleUser(googleUs);
-    localStorage.setItem('googleUser', JSON.stringify(googleUs));
+    const googleUser = await googleAuth.signIn();
   }
 
   return (
@@ -76,7 +65,6 @@ const MeetingsPage = () => {
         }}
         maxWidth='xl'
         disableGutters>
-        {/* {!googleUser && ( */}
         <Button
           variant='contained'
           onClick={loginHandler}
@@ -84,7 +72,6 @@ const MeetingsPage = () => {
           sx={{ position: 'fixed', top: '5rem', right: '3rem', borderRadius: '1rem' }}>
           Login
         </Button>
-        {/* )} */}
         <FloatingButton onClick={handleClickOpenClose} />
         {meetForm && (
           <NewMeetingForm

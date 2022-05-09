@@ -25,7 +25,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
 import FloatingButton from '../../../components/FloatingButton/FloatingButton';
 import { useWorkspace } from '../../../context';
-import { getAllWorkspaceMemebers } from '../../../utils/members';
+import { getAllWorkspaceMembers } from '../../../utils/members';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -37,19 +37,6 @@ const MenuProps = {
     },
   },
 };
-
-// const names = [
-//   'OliverHansen@gmail.com',
-//   'VanHenry@mui.com',
-//   'AprilTucker@mdeu.com',
-//   'RalphHubbard@jndejkmd.com',
-//   'OmarAlexander@ude.com',
-//   'CarlosAbbott@example.com',
-//   'MiriamWagner@new.com',
-//   'BradleyWilkerson@jnef.com',
-//   'VirginiaAndrews@efkm.com',
-//   'Kelly@Snyder.com',
-// ];
 
 const NewMeetingForm = ({ setFinalMeeting, handleClickOpenClose, meetForm, memberEmail = '' }) => {
   const [meeting, setMeeting] = useState({
@@ -127,7 +114,6 @@ const NewMeetingForm = ({ setFinalMeeting, handleClickOpenClose, meetForm, membe
     request.execute((event) => {
       console.log(event);
       setFinalMeeting(event);
-      // window.open(event.htmlLink);
       handleClickOpenClose();
       setMeeting({
         name: '',
@@ -143,7 +129,7 @@ const NewMeetingForm = ({ setFinalMeeting, handleClickOpenClose, meetForm, membe
 
   useEffect(() => {
     (async () => {
-      const temp = await getAllWorkspaceMemebers(workspace.uid);
+      const temp = await getAllWorkspaceMembers(workspace.uid);
       temp.forEach((user) => setNames((prev) => [...prev, user.email]));
     })();
   }, [workspace.uid]);

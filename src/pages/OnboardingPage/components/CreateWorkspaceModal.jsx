@@ -2,10 +2,18 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import GroupsIcon from '@mui/icons-material/Groups';
-import { Box, Button, DialogActions, DialogContent, TextField, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  TextField,
+  Typography,
+} from '@mui/material';
 import { grey, orange } from '@mui/material/colors';
 
-import { BootstrapDialog, BootstrapDialogTitle } from '../../../components';
 import { useAuth } from '../../../context';
 import { flexCenter, flexCenterColumn } from '../../../styles/commonObjectStyles';
 import { createWorkspace } from '../../../utils/team';
@@ -51,10 +59,10 @@ const CreateWorkspaceModal = () => {
           Create a workspace
         </Typography>
       </Box>
-      <BootstrapDialog onClose={handleClose} aria-labelledby='customized-dialog-title' open={open}>
-        <BootstrapDialogTitle id='customized-dialog-title' textAlign='center'>
+      <Dialog onClose={handleClose} aria-labelledby='customized-dialog-title' open={open}>
+        <DialogTitle id='customized-dialog-title' textAlign='center'>
           Create your workspace
-        </BootstrapDialogTitle>
+        </DialogTitle>
         <form style={{ width: '100%' }} onSubmit={handleCreateWorkspace}>
           <DialogContent dividers>
             <Box
@@ -83,10 +91,10 @@ const CreateWorkspaceModal = () => {
             </Box>
           </DialogContent>
           <DialogActions>
-            <Button type='submit'>Join</Button>
+            <Button type='submit'>Create</Button>
           </DialogActions>
         </form>
-      </BootstrapDialog>
+      </Dialog>
     </div>
   );
 };

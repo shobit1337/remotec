@@ -10,13 +10,9 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material/';
-import { green, grey, orange, red } from '@mui/material/colors';
+import { green, grey, indigo, orange, red } from '@mui/material/colors';
 
 import { useProject } from '../../context';
-
-function createData(task, assignee, dueDate, priority, status) {
-  return { task, assignee, dueDate, priority, status };
-}
 
 const getPriorityColour = (priority) => {
   switch (priority) {
@@ -33,12 +29,27 @@ const getPriorityColour = (priority) => {
 
 const getStatusColor = (status) => {
   switch (status) {
-    case 'At Risk':
+    case 'Doing':
       return orange[300];
-    case 'On Track':
+    case 'Done':
       return green[300];
-    case 'Off Track':
+    case 'To do':
       return red[300];
+    default:
+      return grey[600];
+  }
+};
+
+const getProgressColor = (progress) => {
+  switch (progress) {
+    case 'Bug':
+      return red[300];
+    case 'On track':
+      return green[300];
+    case 'Off track':
+      return orange[300];
+    case 'Need help':
+      return indigo[300];
     default:
       return grey[600];
   }
@@ -65,36 +76,49 @@ const TasksTable = () => {
         <TableHead>
           <TableRow>
             <TableCell>Tasks</TableCell>
-            <TableCell align='right'>Assignee</TableCell>
-            <TableCell align='right'>Due Date</TableCell>
-            <TableCell align='right'>Priority</TableCell>
-            <TableCell align='right'>Status</TableCell>
+            <TableCell align='center'>Assignee</TableCell>
+            <TableCell align='center'>Due Date</TableCell>
+            <TableCell align='center'>Priority</TableCell>
+            <TableCell align='center'>Status</TableCell>
+            <TableCell align='center'>Progress</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {projectTasks?.map((task) => (
             <TableRow
               key={task.uid}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 }, cursor: 'pointer' }}
+              sx={{ cursor: 'pointer' }}
               onClick={() => handleSelectTask(task)}>
               <TableCell component='th' scope='row'>
                 {task.name}
               </TableCell>
-              <TableCell align='right'>{task.assigned && task.assigned?.name}</TableCell>
-              <TableCell align='right'>{task.date && task.date?.toDate().toDateString()}</TableCell>
-              <TableCell align='right'>
+              <TableCell align='center'>{task.assigned && task.assigned?.name}</TableCell>
+              <TableCell align='center'>
+                {task.date && task.date?.toDate().toDateString()}
+              </TableCell>
+              <TableCell align='center'>
                 {task.priority && (
                   <Chip
                     sx={{ backgroundColor: getPriorityColour(task.priority) }}
                     label={task.priority}
+                    size='small'
                   />
                 )}
               </TableCell>
-              <TableCell align='right'>
+              <TableCell align='center'>
                 {task.status && (
                   <Chip
                     sx={{ backgroundColor: getStatusColor(task.status) }}
-                    label={task.status}></Chip>
+                    label={task.status}
+                    size='small'></Chip>
+                )}
+              </TableCell>
+              <TableCell align='center'>
+                {task.progress && (
+                  <Chip
+                    sx={{ backgroundColor: getProgressColor(task.progress) }}
+                    label={task.progress}
+                    size='small'></Chip>
                 )}
               </TableCell>
             </TableRow>

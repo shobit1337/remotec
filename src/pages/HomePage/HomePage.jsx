@@ -24,7 +24,7 @@ import { ProjectModal } from '../../components';
 import { useAuth, useWorkspace } from '../../context';
 import { flexCenter } from '../../styles/commonObjectStyles';
 import { getDate, getDay } from '../../utils';
-import { getAllWorkspaceMemebers } from '../../utils/members';
+import { getAllWorkspaceMembers } from '../../utils/members';
 import { getAllProjects } from '../../utils/project';
 import { getUserNotes, updateUserNotes } from '../../utils/userNote';
 import NewMeetingForm from '../MeetingsPage/components/NewMeetingForm';
@@ -85,7 +85,7 @@ const HomePage = () => {
         setProjects(projectsRes);
       })();
       (async () => {
-        const workMatesRes = await getAllWorkspaceMemebers(workspace?.uid);
+        const workMatesRes = await getAllWorkspaceMembers(workspace?.uid);
         setWorkMates(workMatesRes);
       })();
     }
