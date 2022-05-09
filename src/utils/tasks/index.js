@@ -1,3 +1,5 @@
+import { toast } from 'react-toastify';
+
 import {
   collection,
   deleteDoc,
@@ -34,46 +36,51 @@ export const getAllUserTasks = async (userId) => {
 };
 
 export const createProjectTask = async (data, workspaceId, projectId, userId) => {
-  const taskObj = {
-    ...data,
-    uid: uuid(),
-    createdAt: new Date(),
-    workspaceId: workspaceId,
-    projectId: projectId,
-  };
+  try {
+    const taskObj = {
+      ...data,
+      uid: uuid(),
+      createdAt: new Date(),
+      workspaceId: workspaceId,
+      projectId: projectId,
+    };
 
-  // New task pushed to tasks
-  const tasksRef = doc(collection(db, 'tasks'), taskObj.uid);
-  await setDoc(tasksRef, {
-    ...taskObj,
-  });
+    // New task pushed to tasks
+    const tasksRef = doc(collection(db, 'tasks'), taskObj.uid);
+    await setDoc(tasksRef, {
+      ...taskObj,
+    });
 
-  if (projectId) {
-    const projectDoc = await getDoc(doc(db, 'projects', projectId));
-    const project = projectDoc?.data();
-    // Add task to project's tasks:
-    const projectsRef = doc(collection(db, 'projects'), projectId);
-    await setDoc(
-      projectsRef,
-      {
-        tasks: [...project.tasks, taskObj.uid],
-      },
-      { merge: true },
-    );
-  }
-  // If there is assigned then add task to his tasks
-  if (userId) {
-    // Getting Assigned user Doc
-    const userDoc = await getDoc(doc(db, 'users', userId));
-    const user = userDoc?.data();
-    const userRef = doc(collection(db, 'users'), userId);
-    await setDoc(
-      userRef,
-      {
-        tasks: [...user.tasks, taskObj.uid],
-      },
-      { merge: true },
-    );
+    if (projectId) {
+      const projectDoc = await getDoc(doc(db, 'projects', projectId));
+      const project = projectDoc?.data();
+      // Add task to project's tasks:
+      const projectsRef = doc(collection(db, 'projects'), projectId);
+      await setDoc(
+        projectsRef,
+        {
+          tasks: [...project.tasks, taskObj.uid],
+        },
+        { merge: true },
+      );
+    }
+    // If there is assigned then add task to his tasks
+    if (userId) {
+      // Getting Assigned user Doc
+      const userDoc = await getDoc(doc(db, 'users', userId));
+      const user = userDoc?.data();
+      const userRef = doc(collection(db, 'users'), userId);
+      await setDoc(
+        userRef,
+        {
+          tasks: [...user.tasks, taskObj.uid],
+        },
+        { merge: true },
+      );
+    }
+    toast.success('Task created successfully');
+  } catch (error) {
+    toast.error('Cannot create task');
   }
 };
 

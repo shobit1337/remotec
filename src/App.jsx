@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
-import { Slide, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.min.css';
 
-import { Box, CssBaseline, Typography } from '@mui/material';
+import { Box, CssBaseline } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 import { Bottombar, Navbar, Sidebar } from './components';
@@ -69,14 +67,6 @@ function App() {
         <Outlet />
       </Main>
       <Bottombar />
-      <ToastContainer
-        autoClose={1000}
-        hideProgressBar={true}
-        newestOnTop={true}
-        transition={Slide}
-        theme='colored'
-        position={'bottom-right'}
-      />
     </Box>
   );
 }

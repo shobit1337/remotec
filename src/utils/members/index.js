@@ -1,26 +1,37 @@
+import { toast } from 'react-toastify';
+
 import { collection, doc, getDoc, getDocs, query, setDoc, where } from 'firebase/firestore';
 
 import { db } from '../../firebase/config';
 
 export const getAllWorkspaceMembers = async (workspaceId) => {
-  const allMembers = [];
-  const q = query(collection(db, 'users'), where('workspace', 'array-contains', workspaceId));
-  const querySnapshot = await getDocs(q);
-  querySnapshot.forEach((doc) => {
-    allMembers.push(doc.data());
-  });
-  return allMembers;
+  try {
+    const allMembers = [];
+    const q = query(collection(db, 'users'), where('workspace', 'array-contains', workspaceId));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      allMembers.push(doc.data());
+    });
+    return allMembers;
+  } catch (error) {
+    toast.error('Cannot fetch members');
+    return [];
+  }
 };
 
 export const addWorkspaceMember = async (workspaceId, user) => {
-  const userRef = await doc(collection(db, 'users'), user.uid);
-  await setDoc(
-    userRef,
-    {
-      workspace: [...user.workspace, workspaceId],
-    },
-    { merge: true },
-  );
+  try {
+    const userRef = await doc(collection(db, 'users'), user.uid);
+    await setDoc(
+      userRef,
+      {
+        workspace: [...user.workspace, workspaceId],
+      },
+      { merge: true },
+    );
+  } catch (error) {
+    // toast.error('Cannot add worksspace member');
+  }
 };
 
 export const removeWorkspaceMember = async (workspaceId, userId) => {

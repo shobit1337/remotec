@@ -18,8 +18,8 @@ const ProjectFilesPage = () => {
 
   useEffect(() => {
     (async () => {
-      const asaasa = await getSingleProjectData(projectId);
-      setProjectFiles(asaasa.files);
+      const singleProjectData = await getSingleProjectData(projectId);
+      setProjectFiles(singleProjectData?.files);
       setFlag(!flag);
     })();
   }, [flag]);
