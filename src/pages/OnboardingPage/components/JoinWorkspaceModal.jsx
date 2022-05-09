@@ -2,10 +2,18 @@ import { useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
-import { Box, Button, DialogActions, DialogContent, TextField, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  TextField,
+  Typography,
+} from '@mui/material';
 import { grey, lightBlue } from '@mui/material/colors';
 
-import { BootstrapDialog, BootstrapDialogTitle } from '../../../components';
 import { useAuth } from '../../../context';
 import { flexCenter, flexCenterColumn } from '../../../styles/commonObjectStyles';
 import { joinWorkspace } from '../../../utils/team';
@@ -56,10 +64,10 @@ const JoinWorkspaceModal = () => {
           Join a workspace
         </Typography>
       </Box>
-      <BootstrapDialog onClose={handleClose} aria-labelledby='customized-dialog-title' open={open}>
-        <BootstrapDialogTitle id='customized-dialog-title' textAlign='center'>
+      <Dialog onClose={handleClose} aria-labelledby='customized-dialog-title' open={open}>
+        <DialogTitle id='customized-dialog-title' textAlign='center'>
           Enter your workspace code
-        </BootstrapDialogTitle>
+        </DialogTitle>
         <form style={{ width: '100%' }} onSubmit={handleJoinWorkspace}>
           <DialogContent dividers>
             <Box
@@ -81,7 +89,7 @@ const JoinWorkspaceModal = () => {
             <Button type='submit'>Join</Button>
           </DialogActions>
         </form>
-      </BootstrapDialog>
+      </Dialog>
     </div>
   );
 };
