@@ -30,7 +30,7 @@ Work anytime, anywhere with Remotec. Keep your entire organization focused on th
 - [React toastify library](https://www.npmjs.com/package/react-toastify)
 
 ## Note
-Currently the app is in test mode according to Google API. It takes around 2-3 days for the app to be approved, hence only test users can access the functionality for calendar. If you want to test out the functionality, please use one of the three below emails to login. (We are extremely sorry for this inconvenience, this issue will be resolved once the app gets approved)
+Currently the app is in test mode according to Google API. It takes around 2-3 days for the app to be approved, hence only test users can access the functionality for calendar. (only for the calendar part) If you want to test out the functionality, please use one of the three below emails to login. (We are extremely sorry for this inconvenience, this issue will be resolved once the app gets approved)
 ```
 remotectest1@gmail.com
 remotectest2@gmail.com
