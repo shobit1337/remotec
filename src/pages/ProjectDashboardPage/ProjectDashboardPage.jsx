@@ -92,7 +92,11 @@ const ProjectDashboardPage = () => {
               overflow: 'auto',
             }}>
             Tasks status according to assignee
-            <BarGraph tasks={tasks} names={names} />
+            {tasksTodos.done !== 0 || tasksTodos.notDone !== 0 ? (
+              <BarGraph tasks={tasks} names={names} />
+            ) : (
+              <Typography variant='h6'>Nothing to show</Typography>
+            )}
           </Paper>
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -105,7 +109,11 @@ const ProjectDashboardPage = () => {
             }}>
             Tasks by completion status
             <Box style={{ margin: '2rem' }}>
-              <PieTodos tasksTodos={tasksTodos} />
+              {tasksTodos.done !== 0 || tasksTodos.notDone !== 0 ? (
+                <PieTodos tasksTodos={tasksTodos} />
+              ) : (
+                <Typography variant='h6'>Nothing to show</Typography>
+              )}
             </Box>
           </Paper>
         </Grid>
