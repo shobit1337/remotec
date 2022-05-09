@@ -56,8 +56,8 @@ const MyTaskPage = () => {
           <TableHead>
             <TableRow>
               <TableCell>Tasks</TableCell>
-              <TableCell align='right'>Due Date</TableCell>
-              <TableCell align='right'>Projects</TableCell>
+              <TableCell align='center'>Due Date</TableCell>
+              <TableCell align='center'>Projects</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -68,14 +68,14 @@ const MyTaskPage = () => {
                   setSelectedTasks(task);
                   setIsModalOpen(true);
                 }}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 }, cursor: 'pointer' }}>
+                sx={{ cursor: 'pointer' }}>
                 <TableCell component='th' scope='row'>
                   {task.name}
                 </TableCell>
-                <TableCell align='right'>
+                <TableCell align='center'>
                   {task.date && task.date?.toDate().toDateString()}
                 </TableCell>
-                <TableCell align='right'>{findProjectName(task.projectId)}</TableCell>
+                <TableCell align='center'>{findProjectName(task.projectId)}</TableCell>
               </TableRow>
             ))}
           </TableBody>
