@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import GoogleIcon from '@mui/icons-material/Google';
 import { Masonry } from '@mui/lab';
-import { Button, Container } from '@mui/material';
+import { Button, Container, Typography } from '@mui/material';
 
 import { FloatingButton } from '../../components';
 import EventCard from './components/EventCard';
@@ -93,11 +93,17 @@ const MeetingsPage = () => {
             meetForm={meetForm}
           />
         )}
-        <Masonry columns={{ xs: 1, sm: 2, lg: 3, xl: 4 }} spacing={5}>
-          {eventsFromUser.map((event) => (
-            <EventCard key={event.id} event={event} />
-          ))}
-        </Masonry>
+        {eventsFromUser.length > 0 ? (
+          <Masonry columns={{ xs: 1, sm: 2, lg: 3, xl: 4 }} spacing={5}>
+            {eventsFromUser.map((event) => (
+              <EventCard key={event.id} event={event} />
+            ))}
+          </Masonry>
+        ) : (
+          <Typography variant='h6'>
+            Nothing to show! Add events or login via your Google account
+          </Typography>
+        )}
       </Container>
     </div>
   );
