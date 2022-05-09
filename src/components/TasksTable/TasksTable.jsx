@@ -10,13 +10,9 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material/';
-import { green, grey, orange, red } from '@mui/material/colors';
+import { green, grey, indigo, orange, red } from '@mui/material/colors';
 
 import { useProject } from '../../context';
-
-function createData(task, assignee, dueDate, priority, status) {
-  return { task, assignee, dueDate, priority, status };
-}
 
 const getPriorityColour = (priority) => {
   switch (priority) {
@@ -33,12 +29,27 @@ const getPriorityColour = (priority) => {
 
 const getStatusColor = (status) => {
   switch (status) {
-    case 'At Risk':
+    case 'Doing':
       return orange[300];
-    case 'On Track':
+    case 'Done':
       return green[300];
-    case 'Off Track':
+    case 'To do':
       return red[300];
+    default:
+      return grey[600];
+  }
+};
+
+const getProgressColor = (progress) => {
+  switch (progress) {
+    case 'Bug':
+      return red[300];
+    case 'On track':
+      return green[300];
+    case 'Off track':
+      return orange[300];
+    case 'Need help':
+      return indigo[300];
     default:
       return grey[600];
   }
@@ -69,6 +80,7 @@ const TasksTable = () => {
             <TableCell align='right'>Due Date</TableCell>
             <TableCell align='right'>Priority</TableCell>
             <TableCell align='right'>Status</TableCell>
+            <TableCell align='right'>Progress</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -95,6 +107,13 @@ const TasksTable = () => {
                   <Chip
                     sx={{ backgroundColor: getStatusColor(task.status) }}
                     label={task.status}></Chip>
+                )}
+              </TableCell>
+              <TableCell align='right'>
+                {task.progress && (
+                  <Chip
+                    sx={{ backgroundColor: getProgressColor(task.progress) }}
+                    label={task.progress}></Chip>
                 )}
               </TableCell>
             </TableRow>

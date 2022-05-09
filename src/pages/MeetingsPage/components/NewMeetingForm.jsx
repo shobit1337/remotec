@@ -127,7 +127,6 @@ const NewMeetingForm = ({ setFinalMeeting, handleClickOpenClose, meetForm, membe
     request.execute((event) => {
       console.log(event);
       setFinalMeeting(event);
-      // window.open(event.htmlLink);
       handleClickOpenClose();
       setMeeting({
         name: '',
