@@ -11,6 +11,7 @@ import {
 } from 'firebase/auth';
 import { collection, doc, getDoc, setDoc } from 'firebase/firestore';
 
+import { Loader } from '../components';
 import { auth, db } from '../firebase/config';
 
 const provider = new GoogleAuthProvider();
@@ -148,7 +149,9 @@ const AuthProvider = ({ children }) => {
     refreshUser,
   };
 
-  return <AuthContext.Provider value={value}>{!isLoading && children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={value}>{isLoading ? <Loader /> : children}</AuthContext.Provider>
+  );
 };
 
 export { AuthProvider, useAuth };

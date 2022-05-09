@@ -7,3 +7,4 @@ export { default as CreateTaskModal } from './CreateTaskModal/CreateTaskModal';
 export { default as ProjectModal } from './ProjectModal/ProjectModal';
 export { default as TasksTable } from './TasksTable/TasksTable';
 export { default as FloatingButton } from './FloatingButton/FloatingButton';
+export { default as Loader } from './Loader/Loader';
