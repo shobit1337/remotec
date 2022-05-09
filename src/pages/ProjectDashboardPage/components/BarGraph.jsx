@@ -27,7 +27,7 @@ const options = {
 const BarGraph = ({ tasks, names }) => {
   let unique = [];
   for (let i in names) {
-    unique.push(tasks.filter((curItem) => curItem.assigned.uid === names[i].uid));
+    unique.push(tasks.filter((curItem) => curItem?.assigned?.uid === names[i]?.uid));
   }
 
   let finalArray = [];
@@ -39,8 +39,8 @@ const BarGraph = ({ tasks, names }) => {
             ? { ...acc, totalDone: acc.totalDone + 1 }
             : { ...acc, totalNotDone: acc.totalNotDone + 1 },
         {
-          name: unique[curr][0].assigned.name,
-          uid: unique[curr][0].assigned.uid,
+          name: unique[curr][0]?.assigned?.name,
+          uid: unique[curr][0]?.assigned?.uid,
           totalDone: 0,
           totalNotDone: 0,
         },
