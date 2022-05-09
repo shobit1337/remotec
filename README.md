@@ -5,6 +5,8 @@
 # Remotec
 Work anytime, anywhere with Remotec. Keep your entire organization focused on their goals, projects, and tasks with Remotec.
 
+Hosted Link: https://remotec.vercel.app/
+
 ## Features
 
 - Google Auhentication
