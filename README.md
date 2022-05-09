@@ -40,6 +40,8 @@ remotectest3@gmail.com
 
 Password - remotec2022
 ```
+If you get an error saying popup closed, please clear the cache and try again
+
 
 ## Running documentation locally and contributing
 ```
