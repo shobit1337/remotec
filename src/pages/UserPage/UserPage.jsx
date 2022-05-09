@@ -3,11 +3,13 @@ import React from 'react';
 import { Avatar, Box, Button, Container, Stack, Typography } from '@mui/material';
 import { indigo } from '@mui/material/colors';
 
-import { useAuth } from '../../context';
+import { useAuth, useWorkspace } from '../../context';
 import { flexCenter } from '../../styles/commonObjectStyles';
+import { leaveWorkspace } from '../../utils/team';
 
 const UserPage = () => {
   const { currentUser, signout } = useAuth();
+  const { workspace } = useWorkspace();
 
   return (
     <div>
@@ -38,7 +40,13 @@ const UserPage = () => {
                 justifyContent: 'space-between',
                 paddingTop: '4rem',
               }}>
-              <Button variant='outlined' color='error'>
+              <Button
+                variant='outlined'
+                color='error'
+                onClick={async () => {
+                  await leaveWorkspace(workspace.uid, currentUser.uid);
+                  signout();
+                }}>
                 Exit team
               </Button>
               <Button onClick={signout} variant='contained' color='error'>
