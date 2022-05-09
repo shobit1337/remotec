@@ -3,7 +3,7 @@ import React from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import { Fab } from '@mui/material';
 
-const FloatingButton = ({ onClick }) => {
+const FloatingButton = ({ onClick = (e) => e }) => {
   return (
     <Fab
       size='medium'

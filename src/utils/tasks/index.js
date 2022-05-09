@@ -21,6 +21,17 @@ export const getAllProjectTasks = async (projectId) => {
   });
   return allTasks;
 };
+export const getAllUserTasks = async (userId) => {
+  const allTasks = [];
+  const querySnapshot = await getDocs(collection(db, 'tasks'));
+  querySnapshot.forEach((doc) => {
+    let data = doc.data();
+    if (data.createdBy === userId || data?.assigned?.uid === userId) {
+      allTasks.push(data);
+    }
+  });
+  return allTasks;
+};
 
 export const createProjectTask = async (data, workspaceId, projectId, userId) => {
   const taskObj = {
@@ -31,31 +42,30 @@ export const createProjectTask = async (data, workspaceId, projectId, userId) =>
     projectId: projectId,
   };
 
-  // Getting Assigned user Doc
-  const userDoc = await getDoc(doc(db, 'users', userId));
-  const user = userDoc?.data();
-
-  const projectDoc = await getDoc(doc(db, 'projects', projectId));
-  const project = projectDoc?.data();
-
   // New task pushed to tasks
   const tasksRef = doc(collection(db, 'tasks'), taskObj.uid);
   await setDoc(tasksRef, {
     ...taskObj,
   });
 
-  // Add task to project's tasks:
-  const projectsRef = doc(collection(db, 'projects'), projectId);
-  await setDoc(
-    projectsRef,
-    {
-      tasks: [...project.tasks, taskObj.uid],
-    },
-    { merge: true },
-  );
-
+  if (projectId) {
+    const projectDoc = await getDoc(doc(db, 'projects', projectId));
+    const project = projectDoc?.data();
+    // Add task to project's tasks:
+    const projectsRef = doc(collection(db, 'projects'), projectId);
+    await setDoc(
+      projectsRef,
+      {
+        tasks: [...project.tasks, taskObj.uid],
+      },
+      { merge: true },
+    );
+  }
   // If there is assigned then add task to his tasks
   if (userId) {
+    // Getting Assigned user Doc
+    const userDoc = await getDoc(doc(db, 'users', userId));
+    const user = userDoc?.data();
     const userRef = doc(collection(db, 'users'), userId);
     await setDoc(
       userRef,
@@ -67,7 +77,7 @@ export const createProjectTask = async (data, workspaceId, projectId, userId) =>
   }
 };
 
-export const updateProjectTask = async (data, newAssigned, prevAssigned) => {
+export const updateProjectTask = async (data, newAssigned = null, prevAssigned = null) => {
   // Update tasks
   const tasksRef = doc(collection(db, 'tasks'), data.uid);
   await setDoc(
@@ -79,7 +89,7 @@ export const updateProjectTask = async (data, newAssigned, prevAssigned) => {
   );
 
   // If prev !== new
-  if (newAssigned !== prevAssigned) {
+  if (newAssigned && prevAssigned && newAssigned !== prevAssigned) {
     // Add to new
     // Getting Assigned user Doc
     const newUserDoc = await getDoc(doc(db, 'users', newAssigned));
