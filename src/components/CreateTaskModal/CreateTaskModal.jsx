@@ -143,8 +143,8 @@ const CreateTaskModal = ({ open, toggleClose, task = null }) => {
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DesktopDatePicker
                 label='Due date'
-                value={new Date()}
-                minDate={new Date('2017-01-01')}
+                value={details.date}
+                minDate={new Date()}
                 onChange={(newValue) => setFieldInput('date', newValue)}
                 renderInput={(params) => <TextField {...params} />}
               />

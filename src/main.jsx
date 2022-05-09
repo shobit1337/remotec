@@ -12,7 +12,10 @@ import { AuthProvider, DarkModeProvider, WorkspaceProvider } from './context';
 import './index.css';
 import { theme } from './styles/theme';
 
-registerSW();
+if ('serviceWorker' in navigator) {
+  // && !/localhost/.test(window.location)) {
+  registerSW();
+}
 
 ReactDOM.render(
   <React.StrictMode>

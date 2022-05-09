@@ -52,6 +52,34 @@ export const joinWorkspace = async (code, user) => {
   }
 };
 
+export const leaveWorkspace = async (workspaceId, userId) => {
+  // remove userId from workspace
+  const workspaceDoc = await getDoc(doc(db, 'workspace', workspaceId));
+  const workspace = workspaceDoc?.data();
+  const updatedWorkspace = workspace.members.filter((member) => member !== userId);
+  const workspaceRef = doc(collection(db, 'workspace'), workspaceId);
+  await setDoc(
+    workspaceRef,
+    {
+      workspace: [...updatedWorkspace],
+    },
+    { merge: true },
+  );
+
+  //remove workspceId from user
+  const userRef = doc(collection(db, 'users'), userId);
+  await setDoc(
+    userRef,
+    {
+      workspace: [],
+      tasks: [],
+      meetings: [],
+    },
+    { merge: true },
+  );
+  console.log('success');
+};
+
 export const getWorkspace = async (workspaceId) => {
   const workspaceDoc = await getDoc(doc(db, 'workspace', workspaceId));
   return workspaceDoc?.data();
