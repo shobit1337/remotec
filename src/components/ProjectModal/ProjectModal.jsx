@@ -46,8 +46,11 @@ const ProjectModal = ({ open, toggleOpen, id }) => {
   const handleCreateProject = async (e) => {
     e.preventDefault();
     const res = await createProject(details, id);
-    setDetails({ name: '', description: '', themeColor: '' });
-    toast.success('Project Created Successfully');
+    if (res !== null) {
+      console.log('something');
+      setDetails({ name: '', description: '', themeColor: '' });
+      toast.success('Project Created Successfully');
+    } else toast.error('Cannot create project');
     toggleOpen();
   };
 
