@@ -15,34 +15,15 @@ import { useAuth, useWorkspace } from '../../context';
 import { getAllUserTasks } from '../../utils/tasks';
 import MyTaskModal from './components/MyTaskModal';
 
-function createData(task, projects, dueDate) {
-  return { task, projects, dueDate };
-}
-
-const rows = [
-  createData('Frozen yoghurt', 159, 'Project Name'),
-  createData('Ice cream sandwich', 237, 'Project Name'),
-  createData('Eclair', 262, 'Project Name'),
-  createData('Cupcake', 305, 'Project Name'),
-  createData('Gingerbread', 356, 'Project Name'),
-  createData('Gingerbread', 356, 'Project Name'),
-  createData('Gingerbread', 356, 'Project Name'),
-  createData('Gingerbread', 356, 'Project Name'),
-  createData('Gingerbread', 356, 'Project Name'),
-  createData('Gingerbread', 356, 'Project Name'),
-  createData('Gingerbread', 356, 'Project Name'),
-  createData('Gingerbread', 356, 'Project Name'),
-  createData('Gingerbread', 356, 'Project Name'),
-  createData('Gingerbread', 356, 'Project Name'),
-  createData('Gingerbread', 356, 'Project Name'),
-];
-
 const MyTaskPage = () => {
   const { currentUser } = useAuth();
   const { projectList } = useWorkspace();
   const [myTasks, setMyTasks] = useState(null);
   const [selectedTasks, setSelectedTasks] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [refresh, setRefresh] = useState(false);
+
+  const tiggerRefresh = () => setRefresh((state) => !state);
 
   const toggleClose = () => {
     setIsModalOpen(false);
@@ -59,7 +40,7 @@ const MyTaskPage = () => {
       const data = await getAllUserTasks(currentUser.uid);
       setMyTasks(data);
     })();
-  }, [currentUser]);
+  }, [currentUser, refresh]);
 
   return (
     <>
@@ -87,7 +68,7 @@ const MyTaskPage = () => {
                   setSelectedTasks(task);
                   setIsModalOpen(true);
                 }}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                sx={{ '&:last-child td, &:last-child th': { border: 0 }, cursor: 'pointer' }}>
                 <TableCell component='th' scope='row'>
                   {task.name}
                 </TableCell>
@@ -101,7 +82,14 @@ const MyTaskPage = () => {
         </Table>
       </TableContainer>
       <FloatingButton onClick={() => setIsModalOpen(true)} />
-      <MyTaskModal open={isModalOpen} toggleClose={toggleClose} task={selectedTasks} />
+      <MyTaskModal
+        open={isModalOpen}
+        toggleClose={() => {
+          toggleClose();
+          tiggerRefresh();
+        }}
+        task={selectedTasks}
+      />
     </>
   );
 };
